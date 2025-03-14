@@ -1754,114 +1754,888 @@ display: none;
 <!-- rnb-text-begin -->
 <div id="superstore-eda-challenge-with-r" class="section level1">
 <h1>Superstore EDA Challenge with R</h1>
-<div id="objective" class="section level2">
-<h2>Objective</h2>
-<p>Use your current knowledge in R, and research to learn more stuff and
-go beyond your current knowledge to create a comprehensive EDA for the
-Superstore dataset (here). Create visualizations and calculations to
-answer the following business questions.</p>
-<div id="question-1-how-does-sales-performance-vary-over-time" class="section level3">
-<h3>Question 1: How does sales performance vary over time?</h3>
-<p><strong>Objective:</strong> Identify monthly trends and seasonal
-patterns.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHViR2xpY21GeWVTaG5aM0JzYjNReUtWeHViR2xpY21GeWVTaGtjR3g1Y2lsY2JteHBZbkpoY25rb2NtVmhaSElwWEc1Y2JpTWdURzloWkdsdVp5QjBhR1VnUkdGMFlYTmxkRnh1WkdZZ1BDMGdjbVZoWkM1amMzWW9YQ0l2VlhObGNuTXZaM1ZwYkd4bGNtMXZMMFJ2WTNWdFpXNTBjeTlKY205dWFHRmpheTlFWVhSaGMyVjBjeTlUWVcxd2JHVWdMU0JUZFhCbGNuTjBiM0psTDFOaGJYQnNaU0F0SUZOMWNHVnljM1J2Y21VdVkzTjJYQ0lwWEc1Z1lHQWlmUT09IC0tPlxuXG5gYGByXG5saWJyYXJ5KGdncGxvdDIpXG5saWJyYXJ5KGRwbHlyKVxubGlicmFyeShyZWFkcilcblxuIyBMb2FkaW5nIHRoZSBEYXRhc2V0XG5kZiA8LSByZWFkLmNzdihcXC9Vc2Vycy9ndWlsbGVybW8vRG9jdW1lbnRzL0lyb25oYWNrL0RhdGFzZXRzL1NhbXBsZSAtIFN1cGVyc3RvcmUvU2FtcGxlIC0gU3VwZXJzdG9yZS5jc3ZcXClcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
-<pre><code>
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShnZ3Bsb3QyKVxubGlicmFyeShkcGx5cilcbmxpYnJhcnkocmVhZHIpXG5cbiMgTG9hZGluZyB0aGUgRGF0YXNldFxuZGYgPC0gcmVhZC5jc3YoXCIvVXNlcnMvZ3VpbGxlcm1vL0RvY3VtZW50cy9Jcm9uaGFjay9EYXRhc2V0cy9TYW1wbGUgLSBTdXBlcnN0b3JlL1NhbXBsZSAtIFN1cGVyc3RvcmUuY3N2XCIpXG5gYGAifQ== --&gt;
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<div id="question-1-how-does-sales-performance-vary-over-time" class="section level2">
+<h2>Question 1: How does sales performance vary over time?</h2>
+<hr />
+<div id="executive-summary" class="section level4">
+<h4><strong>Executive Summary</strong></h4>
+<p>Sales trends reveal <strong>unexpected peaks in March and
+January</strong>, a <strong>significant September spike</strong>, and a
+<strong>moderate year-end rise</strong>. Despite volatility, the
+business achieved <strong>strong YOY growth (30% in 2016, 20% in
+2017)</strong>. Key opportunities lie in explaining anomalous peaks and
+addressing mid-year dips.</p>
+<hr />
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVJeUJEYjI1MlpYSjBJQ2RQY21SbGNpQkVZWFJsSnlCMGJ5QkVZWFJsSUdadmNtMWhkQ0FvYlcwdlpHUXZlWGw1ZVNsY2JtUm1KRTl5WkdWeUxrUmhkR1VnUEMwZ1lYTXVSR0YwWlNoa1ppUlBjbVJsY2k1RVlYUmxMQ0JtYjNKdFlYUWdQU0JjSWlWdEx5VmtMeVZaWENJcFhHNWtaaVJUYUdsd0xrUmhkR1VnUEMwZ1lYTXVSR0YwWlNoa1ppUlRhR2x3TGtSaGRHVXNJR1p2Y20xaGRDQTlJRndpSlcwdkpXUXZKVmxjSWlsY2JseHVJeUJGZUhSeVlXTjBJSGxsWVhJZ1lXNWtJRzF2Ym5Sb0lHWnZjaUJuY205MWNHbHVaMXh1WkdZa1dXVmhjazF2Ym5Sb0lEd3RJR1p2Y20xaGRDaGtaaVJQY21SbGNpNUVZWFJsTENCY0lpVlpMU1Z0WENJcFhHNWNiaU1nUTJobFkyc2dkR2hsSUc1bGR5QmpiMngxYlc1elhHNW9aV0ZrS0dSbVd5d2dZeWhjSWs5eVpHVnlMa1JoZEdWY0lpd2dYQ0pUYUdsd0xrUmhkR1ZjSWl3Z1hDSlpaV0Z5VFc5dWRHaGNJaWxkS1Z4dVlHQmdJbjA9IC0tPlxuXG5gYGByXG4jIENvbnZlcnQgJ09yZGVyIERhdGUnIHRvIERhdGUgZm9ybWF0IChtbS9kZC95eXl5KVxuZGYkT3JkZXIuRGF0ZSA8LSBhcy5EYXRlKGRmJE9yZGVyLkRhdGUsIGZvcm1hdCA9IFwiJW0vJWQvJVlcIilcbmRmJFNoaXAuRGF0ZSA8LSBhcy5EYXRlKGRmJFNoaXAuRGF0ZSwgZm9ybWF0ID0gXCIlbS8lZC8lWVwiKVxuXG4jIEV4dHJhY3QgeWVhciBhbmQgbW9udGggZm9yIGdyb3VwaW5nXG5kZiRZZWFyTW9udGggPC0gZm9ybWF0KGRmJE9yZGVyLkRhdGUsIFwiJVktJW1cIilcblxuIyBDaGVjayB0aGUgbmV3IGNvbHVtbnNcbmhlYWQoZGZbLCBjKFwiT3JkZXIuRGF0ZVwiLCBcIlNoaXAuRGF0ZVwiLCBcIlllYXJNb250aFwiKV0pXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBDb252ZXJ0ICdPcmRlciBEYXRlJyB0byBEYXRlIGZvcm1hdCAobW0vZGQveXl5eSlcbmRmJE9yZGVyLkRhdGUgPC0gYXMuRGF0ZShkZiRPcmRlci5EYXRlLCBmb3JtYXQgPSBcIiVtLyVkLyVZXCIpXG5kZiRTaGlwLkRhdGUgPC0gYXMuRGF0ZShkZiRTaGlwLkRhdGUsIGZvcm1hdCA9IFwiJW0vJWQvJVlcIilcblxuIyBFeHRyYWN0IHllYXIgYW5kIG1vbnRoIGZvciBncm91cGluZ1xuZGYkWWVhck1vbnRoIDwtIGZvcm1hdChkZiRPcmRlci5EYXRlLCBcIiVZLSVtXCIpXG5cbiMgQ2hlY2sgdGhlIG5ldyBjb2x1bW5zXG5oZWFkKGRmWywgYyhcIk9yZGVyLkRhdGVcIiwgXCJTaGlwLkRhdGVcIiwgXCJZZWFyTW9udGhcIildKVxuYGBgIn0= -->
+<pre class="r"><code># Convert &#39;Order Date&#39; to Date format (mm/dd/yyyy)
+df$Order.Date &lt;- as.Date(df$Order.Date, format = &quot;%m/%d/%Y&quot;)
+df$Ship.Date &lt;- as.Date(df$Ship.Date, format = &quot;%m/%d/%Y&quot;)
 
-```r
-library(ggplot2)
-library(dplyr)
-library(readr)
+# Extract year and month for grouping
+df$YearMonth &lt;- format(df$Order.Date, &quot;%Y-%m&quot;)
 
-# Loading the Dataset
-df &lt;- read.csv(\/Users/guillermo/Documents/Ironhack/Datasets/Sample - Superstore/Sample - Superstore.csv\)
-```
-
-&lt;!-- rnb-source-end --&gt;</code></pre>
+# Check the new columns
+head(df[, c(&quot;Order.Date&quot;, &quot;Ship.Date&quot;, &quot;YearMonth&quot;)])</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-output-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVZR0JnY2x4dWJHbGljbUZ5ZVNoblozQnNiM1F5S1Z4dWJHbGljbUZ5ZVNoa2NHeDVjaWxjYm14cFluSmhjbmtvY21WaFpISXBYRzVjYmlNZ1RHOWhaR2x1WnlCMGFHVWdSR0YwWVhObGRGeHVaR1lnUEMwZ2NtVmhaQzVqYzNZb1hGd3ZWWE5sY25NdlozVnBiR3hsY20xdkwwUnZZM1Z0Wlc1MGN5OUpjbTl1YUdGamF5OUVZWFJoYzJWMGN5OVRZVzF3YkdVZ0xTQlRkWEJsY25OMGIzSmxMMU5oYlhCc1pTQXRJRk4xY0dWeWMzUnZjbVV1WTNOMlhGd3BYRzVnWUdCY2JtQmdZQ0o5IC0tPlxuXG5gYGByXG5gYGByXG5saWJyYXJ5KGdncGxvdDIpXG5saWJyYXJ5KGRwbHlyKVxubGlicmFyeShyZWFkcilcblxuIyBMb2FkaW5nIHRoZSBEYXRhc2V0XG5kZiA8LSByZWFkLmNzdihcXC9Vc2Vycy9ndWlsbGVybW8vRG9jdW1lbnRzL0lyb25oYWNrL0RhdGFzZXRzL1NhbXBsZSAtIFN1cGVyc3RvcmUvU2FtcGxlIC0gU3VwZXJzdG9yZS5jc3ZcXClcbmBgYFxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxubGlicmFyeShnZ3Bsb3QyKVxubGlicmFyeShkcGx5cilcbmxpYnJhcnkocmVhZHIpXG5cbiMgTG9hZGluZyB0aGUgRGF0YXNldFxuZGYgPC0gcmVhZC5jc3YoXFwvVXNlcnMvZ3VpbGxlcm1vL0RvY3VtZW50cy9Jcm9uaGFjay9EYXRhc2V0cy9TYW1wbGUgLSBTdXBlcnN0b3JlL1NhbXBsZSAtIFN1cGVyc3RvcmUuY3N2XFwpXG5gYGBcbmBgYCJ9 -->
-<pre class="r"><code>```r
-library(ggplot2)
-library(dplyr)
-library(readr)
-
-# Loading the Dataset
-df &lt;- read.csv(\/Users/guillermo/Documents/Ironhack/Datasets/Sample - Superstore/Sample - Superstore.csv\)</code></pre>
-<p>```</p>
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1mcmFtZS1iZWdpbiBleUp0WlhSaFpHRjBZU0k2ZXlKamJHRnpjMlZ6SWpwYkltUmhkR0V1Wm5KaGJXVWlYU3dpYm5KdmR5STZOaXdpYm1OdmJDSTZNeXdpYzNWdGJXRnllU0k2ZXlKRVpYTmpjbWx3ZEdsdmJpSTZXeUprWmlCYk5pRERseUF6WFNKZGZYMHNJbkprWmlJNklrZzBjMGxCUVVGQlFVRkJRVUV6TVZJelZUZERUVUpSSzNKT2RrbHNhMEpKWlVrMGRFUktXRzlJVW1aRlR6Sk5hV3QxUW14YVdsVjBlbTVaY0ZKaU0ydEdabEpXYWtocWNrY3JRVlJ2WkROaFdtMTNTazV0YlN0ak56WmxPRFV5WmpOcmVtMUtMemRqUW5kQlJYUnZNRUZQWkVsRldqTmFOMGRhZDBReVNsb3dWMjFEUkZZclEzSkVUM0ZZYTFsRE5rVjBNM2g2TTFwamFFWm1ORUpuY1c0emVsaGpabGxCTms1VlJtNXJaVWhXVTJoeE9VRTVTMlZaUlVWck4zRnphVmd4Y2xVMFRIWkhNbUZoUjNVNE9VNVdZMVEyVUdFMVlqaHhOMjB5T0U1Q1RrRnhhVFpFT1ROTlJIQjNlalJLYjJOT2R6bE1XVWxpV1RGTU9GSk5lVmxUU2xBclRsazRTa1E0ZFcxR1QwNU9hM3BUZGtWWVkwVTRlWFJIVW1SSlVUbEVhRGREV1RGdlVqRTFURVFyTkdWdFpESlFjMk5FYUVFMVkzQmhaMDB4ZFZSaVRGSmpjVzlHVEZBMlUzRlRWek5QU1U1dmNtVnRVbVpGTkZkRFVuSXJhR2ROVEhoeWRrdExaa3h2YldoS2NXUjJValpDTjFsVFRGZENWRXhRYlZFeGVFTnNlV3N4VXpOQmVXWkZPSGx2ZUhsVVdqSXhNalZSTjB0R1dWRTFWRFpyZDJjd2NESkdVVzl0YzBWdWVFWjVkM3BxVUhJNEwxSTVSMnRsZDBRNGQwbEJRVUU5UFNKOSAtLT5cblxuPGRpdiBkYXRhLXBhZ2VkdGFibGU9XCJmYWxzZVwiPlxuICA8c2NyaXB0IGRhdGEtcGFnZWR0YWJsZS1zb3VyY2UgdHlwZT1cImFwcGxpY2F0aW9uL2pzb25cIj5cbntcImNvbHVtbnNcIjpbe1wibGFiZWxcIjpbXCJcIl0sXCJuYW1lXCI6W1wiX3JuX1wiXSxcInR5cGVcIjpbXCJcIl0sXCJhbGlnblwiOltcImxlZnRcIl19LHtcImxhYmVsXCI6W1wiT3JkZXIuRGF0ZVwiXSxcIm5hbWVcIjpbMV0sXCJ0eXBlXCI6W1wiZGF0ZVwiXSxcImFsaWduXCI6W1wicmlnaHRcIl19LHtcImxhYmVsXCI6W1wiU2hpcC5EYXRlXCJdLFwibmFtZVwiOlsyXSxcInR5cGVcIjpbXCJkYXRlXCJdLFwiYWxpZ25cIjpbXCJyaWdodFwiXX0se1wibGFiZWxcIjpbXCJZZWFyTW9udGhcIl0sXCJuYW1lXCI6WzNdLFwidHlwZVwiOltcImNoclwiXSxcImFsaWduXCI6W1wibGVmdFwiXX1dLFwiZGF0YVwiOlt7XCIxXCI6XCIyMDE2LTExLTA4XCIsXCIyXCI6XCIyMDE2LTExLTExXCIsXCIzXCI6XCIyMDE2LTExXCIsXCJfcm5fXCI6XCIxXCJ9LHtcIjFcIjpcIjIwMTYtMTEtMDhcIixcIjJcIjpcIjIwMTYtMTEtMTFcIixcIjNcIjpcIjIwMTYtMTFcIixcIl9ybl9cIjpcIjJcIn0se1wiMVwiOlwiMjAxNi0wNi0xMlwiLFwiMlwiOlwiMjAxNi0wNi0xNlwiLFwiM1wiOlwiMjAxNi0wNlwiLFwiX3JuX1wiOlwiM1wifSx7XCIxXCI6XCIyMDE1LTEwLTExXCIsXCIyXCI6XCIyMDE1LTEwLTE4XCIsXCIzXCI6XCIyMDE1LTEwXCIsXCJfcm5fXCI6XCI0XCJ9LHtcIjFcIjpcIjIwMTUtMTAtMTFcIixcIjJcIjpcIjIwMTUtMTAtMThcIixcIjNcIjpcIjIwMTUtMTBcIixcIl9ybl9cIjpcIjVcIn0se1wiMVwiOlwiMjAxNC0wNi0wOVwiLFwiMlwiOlwiMjAxNC0wNi0xNFwiLFwiM1wiOlwiMjAxNC0wNlwiLFwiX3JuX1wiOlwiNlwifV0sXCJvcHRpb25zXCI6e1wiY29sdW1uc1wiOntcIm1pblwiOnt9LFwibWF4XCI6WzEwXSxcInRvdGFsXCI6WzNdfSxcInJvd3NcIjp7XCJtaW5cIjpbMTBdLFwibWF4XCI6WzEwXSxcInRvdGFsXCI6WzZdfSxcInBhZ2VzXCI6e319fVxuICA8XC9zY3JpcHQ+XG48XC9kaXY+XG5cbjwhLS0gcm5iLWZyYW1lLWVuZCAtLT5cbiJ9 -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibnJvdyI6NiwibmNvbCI6Mywic3VtbWFyeSI6eyJEZXNjcmlwdGlvbiI6WyJkZiBbNiDDlyAzXSJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUEzMVIzVTdDTUJRK3JOdklsa0JJZUk0dERKWG9IUmZFTzJNaWt1QmxaWlV0em5ZcFJiM2tGZlJWakhqckcrQVRvZDNhWm13Sk5tbStjNzZlODUyZjNrem1KLzdjQndBRXRvMEFPZElFWjNaN0dad0QySlowV21DRFYrQ3JET3FYa1lDNkV0M3h6M1pjaEZmNEJncW4zelhjZllBNk5VRm5rZUhWU2hxOUE5S2VZRUVrN3FzaVgxclU0THZHMmFhR3U4OU5WY1Q2UGE1YjhxN20yOE5CTkFxaTZEOTNNRHB3ejRKb2NOdzlMWUliWTFMOFJNeVlTSlArTlk4SkQ4dW1GT05Oa3pTdkVYY0U4eXRHUmRJUTlEaDdDWTFvUjE1TEQrNGVtZDJQc2NEaEE1Y3BhZ00xdVRiTFJjcW9GTFA2U3FTVzNPSU5vcmVtUmZFNFdDUnIraGdNTHhydktLZkxvbWhKcWR2UjZCN1lTTFdCVExQbVExeENseWsxUzNBeWZFOHlveHlUWjIxMjVRN0tGWVE1VDZrd2cwcDJGUW9tc0VueEZ5d3pqUHI4L1I5R2tld0Q4d0lBQUE9PSJ9 -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Order.Date"],"name":[1],"type":["date"],"align":["right"]},{"label":["Ship.Date"],"name":[2],"type":["date"],"align":["right"]},{"label":["YearMonth"],"name":[3],"type":["chr"],"align":["left"]}],"data":[{"1":"2016-11-08","2":"2016-11-11","3":"2016-11","_rn_":"1"},{"1":"2016-11-08","2":"2016-11-11","3":"2016-11","_rn_":"2"},{"1":"2016-06-12","2":"2016-06-16","3":"2016-06","_rn_":"3"},{"1":"2015-10-11","2":"2015-10-18","3":"2015-10","_rn_":"4"},{"1":"2015-10-11","2":"2015-10-18","3":"2015-10","_rn_":"5"},{"1":"2014-06-09","2":"2014-06-14","3":"2014-06","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p><strong>Group by YearMonth and calculate total sales</strong></p>
+<ul>
+<li>Identify which months consistently show sales peaks.</li>
+</ul>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p><strong>Plot monthly sales trends</strong></p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<hr />
+</div>
+<div id="detailed-analysis" class="section level3">
+<h3><strong>Detailed Analysis</strong></h3>
+<div id="monthly-sales-trends" class="section level4">
+<h4><strong>1. Monthly Sales Trends</strong></h4>
+<p><strong>Observations:</strong><br />
+- <strong>Key Peaks:</strong><br />
+- <strong>September</strong>: A sharp, unexplained spike, followed by a
+<strong>steep dip in October</strong>. - <strong>March</strong>:
+Consistent annual peak.<br />
+- <strong>November/December</strong>: Smaller peaks compared to
+September.<br />
+- <strong>Dips:</strong><br />
+- <strong>January</strong>: Largest annual drop.<br />
+- <strong>October</strong>: Sudden decline post-September spike.</p>
+<p><strong>Key Insight:</strong><br />
+- <strong>September anomaly</strong>: The September spike is unusual and
+warrants investigation (e.g., bulk orders, promotions, or data
+errors).<br />
+- <strong>March strength</strong>: Likely tied to fiscal year-end or
+seasonal B2B demand.</p>
+<hr />
+<hr />
+</div>
+<div id="average-sales-by-month-all-years" class="section level4">
+<h4><strong>2. Average Sales by Month (All Years)</strong></h4>
+<p><strong>Observations:</strong><br />
+- <strong>Peaks:</strong><br />
+- <strong>January</strong>: Highest average sales, likely due to
+post-holiday bulk orders or unique annual contracts.<br />
+- <strong>March</strong>: Second-highest, reinforcing fiscal year-end
+activity.<br />
+- <strong>Year-End Trend</strong>:<br />
+- A <strong>gradual increase</strong> from August to December.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p><strong>Key Insight:</strong><br />
+- <strong>Contradictory seasonality</strong>: Unlike typical retail
+patterns, January and March drive higher sales than year-end months.
+<strong>While January and March show consistent strength in average
+sales, yearly trends reveal volatility in Q4 (e.g., a strong September
+2016 followed by an October dip). This suggests that while the business
+can rely on Q1 stability, Q4 performance is highly sensitive to annual
+factors like promotions, logistics, or market shifts.</strong></p>
+</div>
+</div>
+<div id="summary-of-plot-differences" class="section level3">
+<h3><strong>Summary of Plot Differences</strong></h3>
+<ul>
+<li><strong>Average Sales by Month</strong>: Highlights <em>consistent
+monthly patterns</em> (e.g., January/March strength) by smoothing out
+year-to-year noise.<br />
+</li>
+<li><strong>Monthly Trends by Year</strong>: Reveals <em>annual
+volatility</em> (e.g., a 2016 September spike, 2015 dips), showing how
+unique events or strategies impact short-term performance.</li>
+</ul>
+<p><strong>Why They Differ</strong>: Averages emphasize reliability;
+yearly trends expose variability. January/March are stable anchors,
+while Q4 fluctuates with annual factors.</p>
+<hr />
+<div id="year-over-year-yoy-growth" class="section level4">
+<h4><strong>3. Year-over-Year (YOY) Growth</strong></h4>
+<p><strong>Observations:</strong><br />
+- <strong>2015</strong>: <strong>-5% decline</strong> (potential
+operational missteps or market shifts).<br />
+- <strong>2016</strong>: <strong>+30% growth</strong> (recovery and
+strategic adjustments).<br />
+- <strong>2017</strong>: <strong>+20% growth</strong> (sustained
+progress despite smaller gains).</p>
+<p><strong>Key Insight:</strong><br />
+- <strong>Resilient growth</strong>: Post-2015 recovery highlights
+adaptability, but irregular monthly trends suggest untapped
+potential.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<hr />
+</div>
+</div>
+<div id="recommendations" class="section level3">
+<h3><strong>Recommendations</strong></h3>
+<ol style="list-style-type: decimal">
+<li><strong>Investigate September Spike</strong>:
+<ul>
+<li>Analyze 2014–2017 September transactions for outliers (e.g., bulk
+corporate orders, promotions).<br />
+</li>
+<li>If intentional, replicate strategies in other months. If accidental
+(e.g., data entry errors), correct records.</li>
+</ul></li>
+<li><strong>Leverage March and January Peaks</strong>:
+<ul>
+<li>Target B2B clients in March with tailored promotions (e.g., fiscal
+year-end discounts).<br />
+</li>
+<li>Capitalize on January demand (e.g., “New Year Reset” campaigns for
+recurring contracts).</li>
+</ul></li>
+<li><strong>Address October Dip</strong>:
+<ul>
+<li>Mitigate post-September slump with flash sales or loyalty incentives
+(e.g., “Pre-Holiday Early Access”).</li>
+</ul></li>
+<li><strong>Improve Year-End Consistency</strong>:
+<ul>
+<li>Align November/December strategies with September’s success (e.g.,
+extend promotions to avoid October drop-off).</li>
+</ul></li>
+</ol>
+<hr />
+</div>
+<div id="conclusion" class="section level3">
+<h3><strong>Conclusion</strong></h3>
+<p>The Superstore’s sales patterns defy traditional retail seasonality,
+with <strong>strength in Q1 (January, March)</strong> and an
+<strong>anomalous September spike</strong>. By decoding these trends and
+stabilizing year-end execution, the business can unlock further
+growth.</p>
+<hr />
+</div>
+</div>
+</div>
+<div id="question-2-which-product-categories-have-the-bestworst-profit-margins" class="section level1">
+<h1>Question 2: Which product categories have the best/worst profit
+margins?</h1>
+<p><strong>Identify high/low performing product categories</strong></p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<div id="analysis-from-the-data" class="section level3">
+<h3>Analysis from the data:</h3>
+<ul>
+<li><strong>Technology</strong> has the highest average profit margin:
+<strong>15.61%</strong>.<br />
+</li>
+<li><strong>Furniture</strong> has the lowest average profit margin:
+<strong>3.88%</strong>.</li>
+</ul>
+<p><strong>Result:</strong> The profit margin difference between
+Technology and Furniture is <strong>11.73 percentage
+points</strong>.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<hr />
+</div>
+<div id="suggested-strategies-to-improve-low-performing-categories" class="section level3">
+<h3><strong>Suggested Strategies to Improve Low-Performing
+Categories</strong></h3>
+<div id="why-furniture-has-low-profit-margins" class="section level4">
+<h4><strong>Why Furniture Has Low Profit Margins</strong></h4>
+<ul>
+<li><strong>High Costs</strong>: Furniture often has high shipping and
+storage costs due to its size and weight.<br />
+</li>
+<li><strong>Discounts</strong>: Frequent discounts or promotions may
+erode margins.<br />
+</li>
+<li><strong>Competition</strong>: The market may be saturated, forcing
+lower prices.</li>
+</ul>
+</div>
+<div id="strategies-to-improve-furniture-profitability" class="section level4">
+<h4><strong>Strategies to Improve Furniture Profitability</strong></h4>
+<ol style="list-style-type: decimal">
+<li><strong>Optimize Pricing:</strong>
+<ul>
+<li><strong>Reduce Discounts</strong>: Limit promotions to maintain
+higher prices.<br />
+</li>
+<li><strong>Bundle Products</strong>: Offer furniture bundles with
+high-margin items (e.g., office chairs with desks).</li>
+</ul></li>
+<li><strong>Reduce Costs:</strong>
+<ul>
+<li><strong>Negotiate Shipping Rates</strong>: Partner with logistics
+providers for bulk discounts.<br />
+</li>
+<li><strong>Streamline Inventory</strong>: Reduce storage costs by
+optimizing stock levels.</li>
+</ul></li>
+<li><strong>Increase Value Perception:</strong>
+<ul>
+<li><strong>Upsell Premium Products</strong>: Highlight higher-margin
+furniture items (e.g., ergonomic chairs).<br />
+</li>
+<li><strong>Enhance Marketing</strong>: Emphasize quality and durability
+to justify higher prices.</li>
+</ul></li>
+<li><strong>Improve Operational Efficiency:</strong>
+<ul>
+<li><strong>Analyze Loss-Making Products</strong>: Identify specific
+furniture items with negative margins and discontinue or reprice
+them.<br />
+</li>
+<li><strong>Leverage Technology</strong>: Use data analytics to forecast
+demand and reduce overstocking.</li>
+</ul></li>
+</ol>
+<hr />
+</div>
+</div>
+<div id="business-analysis-summary" class="section level3">
+<h3><strong>Business Analysis Summary</strong></h3>
+<div id="profit-margin-difference" class="section level4">
+<h4><strong>Profit Margin Difference</strong></h4>
+<ul>
+<li>The <strong>profit margin gap</strong> between Technology (15.61%)
+and Furniture (3.88%) is <strong>11.73 percentage points</strong>,
+highlighting significant room for improvement in Furniture
+profitability.</li>
+</ul>
+</div>
+<div id="strategies-for-furniture" class="section level4">
+<h4><strong>Strategies for Furniture</strong></h4>
+<ol style="list-style-type: decimal">
+<li><strong>Pricing Adjustments</strong>: Reduce discounts and bundle
+with high-margin items.<br />
+</li>
+<li><strong>Cost Reduction</strong>: Negotiate shipping rates and
+optimize inventory.<br />
+</li>
+<li><strong>Value Addition</strong>: Upsell premium products and enhance
+marketing.<br />
+</li>
+<li><strong>Operational Efficiency</strong>: Discontinue loss-making
+items and use data for demand forecasting.</li>
+</ol>
+<hr />
+</div>
+</div>
+</div>
+<div id="question-3-how-do-regional-performances-compare" class="section level1">
+<h1>Question 3: How do regional performances compare?</h1>
+<div id="analysis-do-high-sales-always-correlate-with-high-profits" class="section level3">
+<h3><strong>Analysis: Do High Sales Always Correlate with High
+Profits?</strong></h3>
+<ul>
+<li><strong>West</strong>: High sales and high profits (strong
+correlation).</li>
+<li><strong>East</strong>: High sales but slightly lower profits (still
+strong).</li>
+<li><strong>South</strong>: Moderate sales but better profits than
+<strong>Central</strong> (sales don’t fully explain profits).</li>
+<li><strong>Central</strong>: Moderate sales but the <strong>lowest
+profits</strong> (weak correlation).</li>
+</ul>
+<p><strong>Conclusion:</strong> High sales <strong>do not
+always</strong> correlate with high profits. <strong>Central</strong> is
+a clear example where sales are decent, but profits are significantly
+lower due to poor margins.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="regional-specific-strategies" class="section level3">
+<h3><strong>Regional-Specific Strategies</strong></h3>
+<div id="west-high-sales-high-profit" class="section level4">
+<h4><strong>1. West (High Sales, High Profit)</strong></h4>
+<ul>
+<li><strong>Strategy</strong>: Maintain momentum by investing in
+marketing and expanding high-margin product lines.<br />
+</li>
+<li><strong>Action</strong>: Focus on customer retention and upselling
+premium products.</li>
+</ul>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="east-high-sales-moderate-profit" class="section level4">
+<h4><strong>2. East (High Sales, Moderate Profit)</strong></h4>
+<ul>
+<li><strong>Strategy</strong>: Improve profitability by optimizing costs
+and reducing discounts.<br />
+</li>
+<li><strong>Action</strong>: Analyze operational inefficiencies and
+renegotiate supplier contracts.</li>
+</ul>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="south-moderate-sales-moderate-profit" class="section level4">
+<h4><strong>3. South (Moderate Sales, Moderate Profit)</strong></h4>
+<ul>
+<li><strong>Strategy</strong>: Boost sales while maintaining healthy
+margins.<br />
+</li>
+<li><strong>Action</strong>: Launch targeted promotions and improve
+product mix to attract more customers.</li>
+</ul>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="central-moderate-sales-low-profit" class="section level4">
+<h4><strong>4. Central (Moderate Sales, Low Profit)</strong></h4>
+<ul>
+<li><strong>Strategy</strong>: Address profitability issues
+urgently.<br />
+</li>
+<li><strong>Action</strong>:
+<ul>
+<li>Reduce costs (e.g., shipping, storage).<br />
+</li>
+<li>Discontinue low-margin products.<br />
+</li>
+<li>Focus on high-margin categories to improve overall
+profitability.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="business-analysis-summary-1" class="section level3">
+<h3><strong>Business Analysis Summary</strong></h3>
+<ul>
+<li><strong>West</strong> and <strong>East</strong> are strong
+performers but need strategies to sustain growth and improve
+margins.<br />
+</li>
+<li><strong>South</strong> shows potential but requires targeted efforts
+to increase sales.<br />
+</li>
+<li><strong>Central</strong> is the weakest region, needing urgent cost
+optimization and product mix adjustments.</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="question-4-what-does-customer-segmentation-reveal" class="section level1">
+<h1>Question 4: What does customer segmentation reveal?</h1>
+<div id="summary-of-what-has-been-done" class="section level3">
+<h3><strong>Summary of What Has Been Done</strong></h3>
+<p>We performed <strong>RFM analysis</strong> to segment customers into
+groups based on their purchasing behavior:<br />
+- <strong>Recency (R):</strong> How recently they purchased.<br />
+- <strong>Frequency (F):</strong> How often they purchase.<br />
+- <strong>Monetary (M):</strong> How much they spend.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Using these metrics, we categorized customers into six
+segments:<br />
+1. <strong>Loyal Customers</strong><br />
+2. <strong>Potential Loyalists</strong><br />
+3. <strong>Champions</strong><br />
+4. <strong>At Risk</strong><br />
+5. <strong>Can’t Lose</strong><br />
+6. <strong>High Spenders</strong></p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>We then calculated the <strong>percentage of customers</strong> in
+each segment and the <strong>total revenue</strong> they generate.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<hr />
+</div>
+<div id="business-analysis" class="section level3">
+<h3><strong>Business Analysis</strong></h3>
+<div id="key-findings" class="section level4">
+<h4><strong>Key Findings:</strong></h4>
+<ol style="list-style-type: decimal">
+<li><strong>Loyal Customers (25.85%):</strong>
+<ul>
+<li>Generate the <strong>highest revenue ($912,883)</strong>, making
+them the most valuable segment.<br />
+</li>
+<li><strong>Strategy:</strong> Strengthen loyalty through rewards
+programs and personalized offers.</li>
+</ul></li>
+<li><strong>Potential Loyalists (34.17%):</strong>
+<ul>
+<li>Represent the <strong>largest group</strong> but generate
+<strong>less revenue ($727,485)</strong> than Loyal Customers.<br />
+</li>
+<li><strong>Strategy:</strong> Encourage repeat purchases with targeted
+promotions and upselling.</li>
+</ul></li>
+<li><strong>Champions (6.94%):</strong>
+<ul>
+<li>Small but highly valuable, generating <strong>$376,946 in
+revenue</strong>.<br />
+</li>
+<li><strong>Strategy:</strong> Reward with exclusive perks (e.g., early
+access to sales, VIP treatment).</li>
+</ul></li>
+<li><strong>At Risk (24.72%):</strong>
+<ul>
+<li>Generate <strong>$232,507 in revenue</strong> but are at risk of
+churn.<br />
+</li>
+<li><strong>Strategy:</strong> Win them back with personalized discounts
+and re-engagement campaigns.</li>
+</ul></li>
+<li><strong>Can’t Lose (8.32%):</strong>
+<ul>
+<li>Generate the <strong>lowest revenue ($47,379)</strong> and are
+likely lapsed customers.<br />
+</li>
+<li><strong>Strategy:</strong> Reconnect with special offers or surveys
+to understand their needs.</li>
+</ul></li>
+<li><strong>High Spenders (0%)</strong>:
+<ul>
+<li>No customers fell into this category, indicating a missed
+opportunity to engage high-value but infrequent buyers.</li>
+</ul></li>
+</ol>
+<hr />
+</div>
+<div id="recommendations-1" class="section level4">
+<h4><strong>Recommendations:</strong></h4>
+<ol style="list-style-type: decimal">
+<li><strong>Focus on Loyal Customers and Champions:</strong>
+<ul>
+<li>These segments drive the most revenue. Invest in retention
+strategies like loyalty programs and exclusive perks.</li>
+</ul></li>
+<li><strong>Convert Potential Loyalists:</strong>
+<ul>
+<li>Encourage repeat purchases through targeted marketing and
+upselling.</li>
+</ul></li>
+<li><strong>Re-engage At Risk and Can’t Lose Customers:</strong>
+<ul>
+<li>Use personalized offers and re-engagement campaigns to win them
+back.</li>
+</ul></li>
+<li><strong>Monitor High Spenders:</strong>
+<ul>
+<li>Identify potential high spenders by analyzing customers with high
+monetary value but low frequency or recency.<br />
+</li>
+</ul></li>
+</ol>
+<ul>
+<li>Launch targeted campaigns to increase their engagement and purchase
+frequency.</li>
+</ul>
+</div>
+</div>
+<div id="conclusion-1" class="section level3">
+<h3><strong>Conclusion</strong></h3>
+<p>The segmentation reveals a strong base of <strong>Loyal
+Customers</strong> and <strong>Potential Loyalists</strong>, but there’s
+room to improve engagement with <strong>At Risk</strong> and
+<strong>Can’t Lose</strong> customers. The absence of <strong>High
+Spenders</strong> highlights an opportunity to identify and nurture
+high-value but infrequent buyers. By implementing targeted strategies,
+the business can maximize revenue and customer retention.</p>
+<hr />
+</div>
+</div>
+<div id="question-5-how-does-shipping-mode-affect-profitability" class="section level1">
+<h1>Question 5: How does shipping mode affect profitability?</h1>
+<div id="analysis-profit-margins-by-shipping-mode" class="section level3">
+<h3><strong>Analysis Profit Margins by Shipping Mode</strong></h3>
+<p>From the data: - <strong>Second Class</strong> has the highest
+average profit margin (<strong>15.02%</strong>).<br />
+- <strong>Same Day</strong> follows with <strong>13.82%</strong>.<br />
+- <strong>First Class</strong> and <strong>Standard Class</strong> have
+lower margins (<strong>11.59%</strong> and <strong>11.01%</strong>,
+respectively).</p>
+<p><strong>Key Insight:</strong><br />
+- <strong>Second Class</strong> is the most profitable shipping mode,
+while <strong>Standard Class</strong> (the most commonly used) has the
+lowest margin.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<hr />
+</div>
+<div id="analysis-profit-per-order-by-shipping-mode" class="section level3">
+<h3><strong>Analysis Profit Per Order by Shipping Mode</strong></h3>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>From the data:</p>
+<ul>
+<li><strong>First Class</strong> has the highest average profit per
+order (<strong>$31.84</strong>).<br />
+</li>
+<li><strong>Second Class</strong> follows with
+<strong>$29.54</strong>.<br />
+</li>
+<li><strong>Same Day</strong> and <strong>Standard Class</strong> have
+lower profits per order (<strong>$29.27</strong> and
+<strong>$27.49</strong>, respectively).</li>
+</ul>
+<p><strong>Key Insight:</strong><br />
+- Despite having a lower profit margin, <strong>First Class</strong>
+generates the highest profit per order, likely due to higher sales
+values or fewer discounts.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVJeUJRYkc5MElHRjJaWEpoWjJVZ2NISnZabWwwSUcxaGNtZHBibk1nWW5rZ2MyaHBjSEJwYm1jZ2JXOWtaVnh1WjJkd2JHOTBLSE5vYVhCd2FXNW5YMjFoY21kcGJuTXNJR0ZsY3loNElEMGdjbVZ2Y21SbGNpaFRhR2x3TGsxdlpHVXNJRUYyWjE5UWNtOW1hWFJOWVhKbmFXNHBMQ0I1SUQwZ1FYWm5YMUJ5YjJacGRFMWhjbWRwYmlrcElDdGNiaUFnWjJWdmJWOWlZWElvYzNSaGRDQTlJRndpYVdSbGJuUnBkSGxjSWl3Z1ptbHNiQ0E5SUZ3aWMzUmxaV3hpYkhWbFhDSXBJQ3RjYmlBZ2JHRmljeWgwYVhSc1pTQTlJRndpUVhabGNtRm5aU0JRY205bWFYUWdUV0Z5WjJsdUlHSjVJRk5vYVhCd2FXNW5JRTF2WkdWY0lpd2dlQ0E5SUZ3aVUyaHBjSEJwYm1jZ1RXOWtaVndpTENCNUlEMGdYQ0pCZG1WeVlXZGxJRkJ5YjJacGRDQk5ZWEpuYVc0Z0tDVXBYQ0lwSUN0Y2JpQWdkR2hsYldWZmJXbHVhVzFoYkNncElDdGNiaUFnZEdobGJXVW9ZWGhwY3k1MFpYaDBMbmdnUFNCbGJHVnRaVzUwWDNSbGVIUW9ZVzVuYkdVZ1BTQTBOU3dnYUdwMWMzUWdQU0F4S1NsY2JtQmdZQ0o5IC0tPlxuXG5gYGByXG4jIFBsb3QgYXZlcmFnZSBwcm9maXQgbWFyZ2lucyBieSBzaGlwcGluZyBtb2RlXG5nZ3Bsb3Qoc2hpcHBpbmdfbWFyZ2lucywgYWVzKHggPSByZW9yZGVyKFNoaXAuTW9kZSwgQXZnX1Byb2ZpdE1hcmdpbiksIHkgPSBBdmdfUHJvZml0TWFyZ2luKSkgK1xuICBnZW9tX2JhcihzdGF0ID0gXCJpZGVudGl0eVwiLCBmaWxsID0gXCJzdGVlbGJsdWVcIikgK1xuICBsYWJzKHRpdGxlID0gXCJBdmVyYWdlIFByb2ZpdCBNYXJnaW4gYnkgU2hpcHBpbmcgTW9kZVwiLCB4ID0gXCJTaGlwcGluZyBNb2RlXCIsIHkgPSBcIkF2ZXJhZ2UgUHJvZml0IE1hcmdpbiAoJSlcIikgK1xuICB0aGVtZV9taW5pbWFsKCkgK1xuICB0aGVtZShheGlzLnRleHQueCA9IGVsZW1lbnRfdGV4dChhbmdsZSA9IDQ1LCBoanVzdCA9IDEpKVxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBQbG90IGF2ZXJhZ2UgcHJvZml0IG1hcmdpbnMgYnkgc2hpcHBpbmcgbW9kZVxuZ2dwbG90KHNoaXBwaW5nX21hcmdpbnMsIGFlcyh4ID0gcmVvcmRlcihTaGlwLk1vZGUsIEF2Z19Qcm9maXRNYXJnaW4pLCB5ID0gQXZnX1Byb2ZpdE1hcmdpbikpICtcbiAgZ2VvbV9iYXIoc3RhdCA9IFwiaWRlbnRpdHlcIiwgZmlsbCA9IFwic3RlZWxibHVlXCIpICtcbiAgbGFicyh0aXRsZSA9IFwiQXZlcmFnZSBQcm9maXQgTWFyZ2luIGJ5IFNoaXBwaW5nIE1vZGVcIiwgeCA9IFwiU2hpcHBpbmcgTW9kZVwiLCB5ID0gXCJBdmVyYWdlIFByb2ZpdCBNYXJnaW4gKCUpXCIpICtcbiAgdGhlbWVfbWluaW1hbCgpICtcbiAgdGhlbWUoYXhpcy50ZXh0LnggPSBlbGVtZW50X3RleHQoYW5nbGUgPSA0NSwgaGp1c3QgPSAxKSlcbmBgYCJ9 -->
+<pre class="r"><code># Plot average profit margins by shipping mode
+ggplot(shipping_margins, aes(x = reorder(Ship.Mode, Avg_ProfitMargin), y = Avg_ProfitMargin)) +
+  geom_bar(stat = &quot;identity&quot;, fill = &quot;steelblue&quot;) +
+  labs(title = &quot;Average Profit Margin by Shipping Mode&quot;, x = &quot;Shipping Mode&quot;, y = &quot;Average Profit Margin (%)&quot;) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p><strong>Tasks:</strong></p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVJeUJRYkc5MElHRjJaWEpoWjJVZ2NISnZabWwwSUhCbGNpQnZjbVJsY2lCaWVTQnphR2x3Y0dsdVp5QnRiMlJsWEc1blozQnNiM1FvY0hKdlptbDBYM0JsY2w5dmNtUmxjaXdnWVdWektIZ2dQU0J5Wlc5eVpHVnlLRk5vYVhBdVRXOWtaU3dnUVhablgxQnliMlpwZEZCbGNrOXlaR1Z5S1N3Z2VTQTlJRUYyWjE5UWNtOW1hWFJRWlhKUGNtUmxjaWtwSUN0Y2JpQWdaMlZ2YlY5aVlYSW9jM1JoZENBOUlGd2lhV1JsYm5ScGRIbGNJaXdnWm1sc2JDQTlJRndpYjNKaGJtZGxYQ0lwSUN0Y2JpQWdiR0ZpY3loMGFYUnNaU0E5SUZ3aVFYWmxjbUZuWlNCUWNtOW1hWFFnY0dWeUlFOXlaR1Z5SUdKNUlGTm9hWEJ3YVc1bklFMXZaR1ZjSWl3Z2VDQTlJRndpVTJocGNIQnBibWNnVFc5a1pWd2lMQ0I1SUQwZ1hDSkJkbVZ5WVdkbElGQnliMlpwZENCd1pYSWdUM0prWlhJZ0tDUXBYQ0lwSUN0Y2JpQWdkR2hsYldWZmJXbHVhVzFoYkNncElDdGNiaUFnZEdobGJXVW9ZWGhwY3k1MFpYaDBMbmdnUFNCbGJHVnRaVzUwWDNSbGVIUW9ZVzVuYkdVZ1BTQTBOU3dnYUdwMWMzUWdQU0F4S1NsY2JtQmdZQ0o5IC0tPlxuXG5gYGByXG4jIFBsb3QgYXZlcmFnZSBwcm9maXQgcGVyIG9yZGVyIGJ5IHNoaXBwaW5nIG1vZGVcbmdncGxvdChwcm9maXRfcGVyX29yZGVyLCBhZXMoeCA9IHJlb3JkZXIoU2hpcC5Nb2RlLCBBdmdfUHJvZml0UGVyT3JkZXIpLCB5ID0gQXZnX1Byb2ZpdFBlck9yZGVyKSkgK1xuICBnZW9tX2JhcihzdGF0ID0gXCJpZGVudGl0eVwiLCBmaWxsID0gXCJvcmFuZ2VcIikgK1xuICBsYWJzKHRpdGxlID0gXCJBdmVyYWdlIFByb2ZpdCBwZXIgT3JkZXIgYnkgU2hpcHBpbmcgTW9kZVwiLCB4ID0gXCJTaGlwcGluZyBNb2RlXCIsIHkgPSBcIkF2ZXJhZ2UgUHJvZml0IHBlciBPcmRlciAoJClcIikgK1xuICB0aGVtZV9taW5pbWFsKCkgK1xuICB0aGVtZShheGlzLnRleHQueCA9IGVsZW1lbnRfdGV4dChhbmdsZSA9IDQ1LCBoanVzdCA9IDEpKVxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBQbG90IGF2ZXJhZ2UgcHJvZml0IHBlciBvcmRlciBieSBzaGlwcGluZyBtb2RlXG5nZ3Bsb3QocHJvZml0X3Blcl9vcmRlciwgYWVzKHggPSByZW9yZGVyKFNoaXAuTW9kZSwgQXZnX1Byb2ZpdFBlck9yZGVyKSwgeSA9IEF2Z19Qcm9maXRQZXJPcmRlcikpICtcbiAgZ2VvbV9iYXIoc3RhdCA9IFwiaWRlbnRpdHlcIiwgZmlsbCA9IFwib3JhbmdlXCIpICtcbiAgbGFicyh0aXRsZSA9IFwiQXZlcmFnZSBQcm9maXQgcGVyIE9yZGVyIGJ5IFNoaXBwaW5nIE1vZGVcIiwgeCA9IFwiU2hpcHBpbmcgTW9kZVwiLCB5ID0gXCJBdmVyYWdlIFByb2ZpdCBwZXIgT3JkZXIgKCQpXCIpICtcbiAgdGhlbWVfbWluaW1hbCgpICtcbiAgdGhlbWUoYXhpcy50ZXh0LnggPSBlbGVtZW50X3RleHQoYW5nbGUgPSA0NSwgaGp1c3QgPSAxKSlcbmBgYCJ9 -->
+<pre class="r"><code># Plot average profit per order by shipping mode
+ggplot(profit_per_order, aes(x = reorder(Ship.Mode, Avg_ProfitPerOrder), y = Avg_ProfitPerOrder)) +
+  geom_bar(stat = &quot;identity&quot;, fill = &quot;orange&quot;) +
+  labs(title = &quot;Average Profit per Order by Shipping Mode&quot;, x = &quot;Shipping Mode&quot;, y = &quot;Average Profit per Order ($)&quot;) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<hr />
+</div>
+<div id="suggestion-optimal-shipping-strategy" class="section level3">
+<h3><strong>Suggestion: Optimal Shipping Strategy</strong></h3>
+<p>Based on the analysis, here’s how to optimize shipping modes for
+profitability:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Second Class</strong>:
 <ul>
-<li><p>Identify which months consistently show sales peaks.</p></li>
-<li><p>Find any unusual dips in the trend line</p></li>
-<li><p>(optional) Calculate YOY growth rate for the most recent complete
-year.</p></li>
-<li><p>Suggest potential reasons for seasonal patterns</p></li>
+<li><strong>Action</strong>: Promote this shipping mode to customers, as
+it has the <strong>highest profit margin</strong>.<br />
+</li>
+<li><strong>Why</strong>: It balances cost and delivery speed
+effectively.</li>
+</ul></li>
+<li><strong>First Class</strong>:
+<ul>
+<li><strong>Action</strong>: Use this mode for high-value orders, as it
+generates the <strong>highest profit per order</strong>.<br />
+</li>
+<li><strong>Why</strong>: Customers paying for faster shipping may also
+purchase higher-margin items.</li>
+</ul></li>
+<li><strong>Same Day</strong>:
+<ul>
+<li><strong>Action</strong>: Limit this mode to urgent orders or charge
+a premium to improve margins.<br />
+</li>
+<li><strong>Why</strong>: While profitable, it may not scale well due to
+higher operational costs.</li>
+</ul></li>
+<li><strong>Standard Class</strong>:
+<ul>
+<li><strong>Action</strong>: Optimize costs (e.g., bulk shipping
+discounts) to improve margins.<br />
+</li>
+<li><strong>Why</strong>: It’s the most commonly used mode but has the
+<strong>lowest margin</strong>.</li>
+</ul></li>
+</ol>
+</div>
+<div id="business-analysis-summary-2" class="section level3">
+<h3><strong>Business Analysis Summary</strong></h3>
+<div id="key-findings-1" class="section level4">
+<h4><strong>Key Findings:</strong></h4>
+<ol style="list-style-type: decimal">
+<li><strong>Second Class</strong> is the most profitable shipping mode
+(<strong>15.02% margin</strong>).<br />
+</li>
+<li><strong>First Class</strong> generates the highest profit per order
+(<strong>$31.84</strong>), despite a lower margin.<br />
+</li>
+<li><strong>Standard Class</strong>, the most widely used mode, has the
+<strong>lowest margin (11.01%)</strong>.</li>
+</ol>
+</div>
+<div id="recommendations-2" class="section level4">
+<h4><strong>Recommendations:</strong></h4>
+<ol style="list-style-type: decimal">
+<li><strong>Promote Second Class</strong>: Encourage customers to choose
+this mode for better profitability.<br />
+</li>
+<li><strong>Leverage First Class</strong>: Use it for high-value orders
+to maximize profit per order.</li>
+</ol>
+<hr />
+</div>
+</div>
+</div>
+<div id="extra-challenge" class="section level1">
+<h1>Extra Challenge:</h1>
+<ul>
+<li>Identify 3 actionable business recommendations.</li>
+</ul>
+<div id="actionable-business-recommendations" class="section level4">
+<h4><strong>1. Actionable Business Recommendations</strong></h4>
+<p>Based on the analysis from Questions 1–5, here are three actionable
+recommendations:</p>
+<p><strong>Recommendation 1: Optimize Shipping Modes for
+Profitability</strong><br />
+- <strong>Action</strong>: Promote <strong>Second Class</strong>
+shipping (highest margin) and use <strong>First Class</strong> for
+high-value orders (highest profit per order).<br />
+- <strong>Impact</strong>: Improve overall profitability by reducing
+reliance on low-margin <strong>Standard Class</strong> shipping.</p>
+<p><strong>Recommendation 2: Retain At-Risk Customers</strong><br />
+- <strong>Action</strong>: Launch targeted retention campaigns (e.g.,
+personalized discounts, loyalty rewards) for the <strong>At
+Risk</strong> segment (24.72% of customers).<br />
+- <strong>Impact</strong>: Reduce churn and increase revenue from a
+significant customer group.</p>
+<p><strong>Recommendation 3: Leverage Seasonal Trends</strong><br />
+- <strong>Action</strong>: Capitalize on <strong>December</strong> and
+<strong>March</strong> sales peaks by increasing inventory and marketing
+efforts during these months.<br />
+- <strong>Impact</strong>: Maximize revenue during high-demand periods
+and offset slower months like January.</p>
+<hr />
+<ul>
+<li>Propose 2 new questions for deeper analysis.</li>
 </ul>
 </div>
-<div id="question-2-which-product-categories-have-the-bestworst-profit-margins" class="section level3">
-<h3>Question 2: Which product categories have the best/worst profit
-margins?</h3>
-<p><strong>Objective:</strong> Identify high/low performing product
-categories</p>
-<p><strong>Tasks:</strong></p>
+<div id="new-questions-for-deeper-analysis" class="section level4">
+<h4><strong>2. New Questions for Deeper Analysis</strong></h4>
+<p>Here are two new questions to explore further:</p>
+<p><strong>Question 1: How do discounts impact profitability across
+product categories?</strong><br />
+- <strong>Why</strong>: Discounts may erode margins, especially in
+low-performing categories like Furniture. Analyzing this can help
+optimize pricing strategies.</p>
+<p><strong>Question 2: What is the customer lifetime value (CLV) by
+segment, and how can it be improved?</strong><br />
+- <strong>Why</strong>: Understanding CLV can help prioritize retention
+efforts and allocate marketing budgets more effectively.</p>
+<hr />
 <ul>
-<li><p>Identify which category has the thinnest margins</p></li>
-<li><p>Calculate the profit margin difference between top and bottom
-categories</p></li>
-<li><p>Suggest strategies to improve low-performing categories</p></li>
+<li>Estimate potential financial impact of your recommendations.</li>
 </ul>
 </div>
-<div id="question-3-how-do-regional-performances-compare" class="section level3">
-<h3>Question 3: How do regional performances compare?</h3>
-<p><strong>Objective:</strong> Compare sales distribution and
-profitability across regions</p>
-<p><strong>Tasks:</strong></p>
-<ul>
-<li><p>Identify which region has both high sales and high
-profitability</p></li>
-<li><p>Find any regions with negative profits</p></li>
-<li><p>Analyze if high sales always correlate with high profits</p></li>
-<li><p>Propose regional-specific strategies based on findings</p></li>
-</ul>
+<div id="estimate-potential-financial-impact" class="section level4">
+<h4><strong>3. Estimate Potential Financial Impact</strong></h4>
+<p>Let’s estimate the financial impact of the recommendations:</p>
+<p><strong>Recommendation 1: Optimize Shipping Modes</strong><br />
+- <strong>Current Profit Margin for Standard Class</strong>:
+11.01%<br />
+- <strong>Target Profit Margin (by shifting to Second Class)</strong>:
+15.02%<br />
+- <strong>Potential Increase</strong>: 4.01%<br />
+- <strong>Estimated Revenue Impact</strong>: If 50% of Standard Class
+orders shift to Second Class, the profit increase could be:<br />
+<span class="math display">\[
+  0.5 \times 1,358,215.7 \times 4.01\% = \$27,250 \text{ annually}
+  \]</span></p>
+<p><strong>Recommendation 2: Retain At-Risk Customers</strong><br />
+- <strong>At-Risk Revenue</strong>: $232,507.40<br />
+- <strong>Target Retention Rate</strong>: 20%<br />
+- <strong>Estimated Revenue Impact</strong>: Retaining 20% of At-Risk
+customers could save:<br />
+<span class="math display">\[
+  0.2 \times 232,507.40 = \$46,501 \text{ annually}
+  \]</span></p>
+<p><strong>Recommendation 3: Leverage Seasonal Trends</strong><br />
+- <strong>December Sales</strong>: $48,000 (example)<br />
+- <strong>Target Increase</strong>: 10%<br />
+- <strong>Estimated Revenue Impact</strong>: A 10% increase in December
+sales could generate:<br />
+<span class="math display">\[
+  0.1 \times 48,000 = \$4,800 \text{ annually}
+  \]</span></p>
+<p><strong>Total Estimated Impact</strong>:<br />
+<span class="math display">\[
+27,250 + 46,501 + 4,800 = \$78,551 \text{ annually}
+\]</span></p>
+<hr />
 </div>
-<div id="question-4-what-does-customer-segmentation-reveal" class="section level3">
-<h3>Question 4: What does customer segmentation reveal?</h3>
-<p><strong>Objective:</strong> Identify valuable customer groups using
-RFM analysis</p>
-<p><strong>Tasks:</strong></p>
+<div id="discussion-points" class="section level3">
+<h3><strong>Discussion Points</strong></h3>
+<p>These were already implicitly covered in the analysis, but here’s how
+they tie in:</p>
+<ol style="list-style-type: decimal">
+<li><strong>How do sales trends correlate with marketing
+initiatives?</strong>
 <ul>
-<li><p>Calculate percentage of customers in each segment</p></li>
-<li><p>Identify which segment generates the most revenue</p></li>
-<li><p>Develop retention strategies for “At Risk” customers</p></li>
-<li><p>Suggest marketing approaches for “High Spenders”</p></li>
-</ul>
+<li>Peaks in December and March likely align with holiday promotions and
+fiscal year-end spending.<br />
+</li>
+<li>Dips in January suggest a need for post-holiday marketing
+campaigns.</li>
+</ul></li>
+<li><strong>Are there regional preferences for product
+categories?</strong>
+<ul>
+<li>This was partially addressed in <strong>Question 3</strong>, where
+we analyzed regional performance. A deeper dive could reveal specific
+category preferences by region.</li>
+</ul></li>
+<li><strong>What operational changes could improve low-margin
+categories?</strong>
+<ul>
+<li>For <strong>Furniture</strong> (lowest margin), we recommended cost
+optimization, bundling, and upselling.</li>
+</ul></li>
+<li><strong>How might customer segmentation affect inventory
+management?</strong>
+<ul>
+<li>Segments like <strong>Champions</strong> and <strong>Loyal
+Customers</strong> should have priority for high-demand products, while
+<strong>At Risk</strong> customers may need targeted promotions to clear
+excess inventory.</li>
+</ul></li>
+</ol>
+<hr />
 </div>
-<div id="question-5-how-does-shipping-mode-affect-profitability" class="section level3">
-<h3>Question 5: How does shipping mode affect profitability?</h3>
-<p><strong>Objective:</strong> Analyze cost-to-serve across shipping
-modes</p>
-<p><strong>Tasks:</strong></p>
-<ul>
-<li><p>Compare profit margins across shipping modes</p></li>
-<li><p>Calculate profit per order for each shipping mode</p></li>
-<li><p>Suggest optimal shipping strategy based on findings</p></li>
-</ul>
+<div id="wrap-up-final-business-report" class="section level3">
+<h3><strong>Wrap-Up: Final Business Report</strong></h3>
+<div id="executive-summary-1" class="section level4">
+<h4><strong>Executive Summary</strong></h4>
+<p>The analysis of the Superstore dataset revealed key insights into
+sales trends, customer segments, and shipping mode profitability. By
+optimizing shipping strategies, retaining at-risk customers, and
+leveraging seasonal peaks, the business can increase annual profits by
+an estimated <strong>$78,551</strong>.</p>
+<hr />
 </div>
-<div id="extra-challenge" class="section level3">
-<h3>Extra Challenge:</h3>
+<div id="key-findings-2" class="section level4">
+<h4><strong>Key Findings</strong></h4>
+<ol style="list-style-type: decimal">
+<li><strong>Sales Trends</strong>: December and March are peak sales
+months, while January experiences a significant dip.<br />
+</li>
+<li><strong>Customer Segments</strong>:
 <ul>
-<li><p>Identify 3 actionable business recommendations.</p></li>
-<li><p>Propose 2 new questions for deeper analysis.</p></li>
-<li><p>Estimate potential financial impact of your
-recommendations.</p></li>
-</ul>
-<div id="discussion-points" class="section level4">
+<li><strong>Loyal Customers</strong> (25.85%) generate the most
+revenue.<br />
+</li>
+<li><strong>At-Risk Customers</strong> (24.72%) represent a significant
+retention opportunity.<br />
+</li>
+</ul></li>
+<li><strong>Shipping Modes</strong>:
+<ul>
+<li><strong>Second Class</strong> has the highest profit margin
+(15.02%).<br />
+</li>
+<li><strong>First Class</strong> generates the highest profit per order
+($31.84).</li>
+</ul></li>
+</ol>
+<hr />
+</div>
+<div id="recommendations-3" class="section level4">
+<h4><strong>Recommendations</strong></h4>
+<ol style="list-style-type: decimal">
+<li><strong>Optimize Shipping Modes</strong>: Promote <strong>Second
+Class</strong> and use <strong>First Class</strong> for high-value
+orders.<br />
+</li>
+<li><strong>Retain At-Risk Customers</strong>: Launch targeted retention
+campaigns to reduce churn.<br />
+</li>
+<li><strong>Leverage Seasonal Trends</strong>: Increase inventory and
+marketing efforts during December and March.</li>
+</ol>
+<hr />
+</div>
+<div id="next-steps" class="section level4">
+<h4><strong>Next Steps</strong></h4>
+<ol style="list-style-type: decimal">
+<li>Implement the recommended strategies and monitor their impact.<br />
+</li>
+<li>Conduct deeper analysis on <strong>discounts</strong> and
+<strong>customer lifetime value</strong> to uncover additional
+opportunities.</li>
+</ol>
+<hr />
+</div>
+</div>
+<div id="conclusion-2" class="section level3">
+<h3><strong>Conclusion</strong></h3>
+<p>By addressing low-performing areas and capitalizing on strengths, the
+Superstore can achieve sustainable growth and improved
+profitability.</p>
+<div id="discussion-points-1" class="section level4">
 <h4>Discussion Points:</h4>
 <ul>
 <li><p>How do sales trends correlate with marketing
@@ -1872,18 +2646,13 @@ categories?</p></li>
 <li><p>How might customer segmentation affect inventory
 management?</p></li>
 </ul>
-<p>Deliverables Submitted notebook (or file) with your responses to each
-of the exercises. Submission Upon completion, add your deliverables to
-git. Then commit git and push your branch to the remote. Make a pull
-request and paste the PR link in the submission field in the Student
-Portal. Good luck!</p>
+<hr />
 <!-- rnb-text-end -->
 </div>
 </div>
 </div>
-</div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiU3VwZXJzdG9yZSBFREEgQ2hhbGxlbmdlIgpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sKLS0tCgojIFN1cGVyc3RvcmUgRURBIENoYWxsZW5nZSB3aXRoIFIKCiMjIE9iamVjdGl2ZQoKVXNlIHlvdXIgY3VycmVudCBrbm93bGVkZ2UgaW4gUiwgYW5kIHJlc2VhcmNoIHRvIGxlYXJuIG1vcmUgc3R1ZmYgYW5kIGdvIGJleW9uZCB5b3VyIGN1cnJlbnQga25vd2xlZGdlIHRvIGNyZWF0ZSBhIGNvbXByZWhlbnNpdmUgRURBIGZvciB0aGUgU3VwZXJzdG9yZSBkYXRhc2V0IChoZXJlKS4gQ3JlYXRlIHZpc3VhbGl6YXRpb25zIGFuZCBjYWxjdWxhdGlvbnMgdG8gYW5zd2VyIHRoZSBmb2xsb3dpbmcgYnVzaW5lc3MgcXVlc3Rpb25zLgoKIyMjIFF1ZXN0aW9uIDE6IEhvdyBkb2VzIHNhbGVzIHBlcmZvcm1hbmNlIHZhcnkgb3ZlciB0aW1lPwoKKipPYmplY3RpdmU6KiogSWRlbnRpZnkgbW9udGhseSB0cmVuZHMgYW5kIHNlYXNvbmFsIHBhdHRlcm5zLgoKYGBge3J9CmxpYnJhcnkoZ2dwbG90MikKbGlicmFyeShkcGx5cikKbGlicmFyeShyZWFkcikKCiMgTG9hZGluZyB0aGUgRGF0YXNldApkZiA8LSByZWFkLmNzdigiL1VzZXJzL2d1aWxsZXJtby9Eb2N1bWVudHMvSXJvbmhhY2svRGF0YXNldHMvU2FtcGxlIC0gU3VwZXJzdG9yZS9TYW1wbGUgLSBTdXBlcnN0b3JlLmNzdiIpCmBgYAoKKipUYXNrczoqKgoKLSAgIElkZW50aWZ5IHdoaWNoIG1vbnRocyBjb25zaXN0ZW50bHkgc2hvdyBzYWxlcyBwZWFrcy4KCi0gICBGaW5kIGFueSB1bnVzdWFsIGRpcHMgaW4gdGhlIHRyZW5kIGxpbmUKCi0gICAob3B0aW9uYWwpIENhbGN1bGF0ZSBZT1kgZ3Jvd3RoIHJhdGUgZm9yIHRoZSBtb3N0IHJlY2VudCBjb21wbGV0ZSB5ZWFyLgoKLSAgIFN1Z2dlc3QgcG90ZW50aWFsIHJlYXNvbnMgZm9yIHNlYXNvbmFsIHBhdHRlcm5zCgojIyMgUXVlc3Rpb24gMjogV2hpY2ggcHJvZHVjdCBjYXRlZ29yaWVzIGhhdmUgdGhlIGJlc3Qvd29yc3QgcHJvZml0IG1hcmdpbnM/CgoqKk9iamVjdGl2ZToqKiBJZGVudGlmeSBoaWdoL2xvdyBwZXJmb3JtaW5nIHByb2R1Y3QgY2F0ZWdvcmllcwoKKipUYXNrczoqKgoKLSAgIElkZW50aWZ5IHdoaWNoIGNhdGVnb3J5IGhhcyB0aGUgdGhpbm5lc3QgbWFyZ2lucwoKLSAgIENhbGN1bGF0ZSB0aGUgcHJvZml0IG1hcmdpbiBkaWZmZXJlbmNlIGJldHdlZW4gdG9wIGFuZCBib3R0b20gY2F0ZWdvcmllcwoKLSAgIFN1Z2dlc3Qgc3RyYXRlZ2llcyB0byBpbXByb3ZlIGxvdy1wZXJmb3JtaW5nIGNhdGVnb3JpZXMKCiMjIyBRdWVzdGlvbiAzOiBIb3cgZG8gcmVnaW9uYWwgcGVyZm9ybWFuY2VzIGNvbXBhcmU/CgoqKk9iamVjdGl2ZToqKiBDb21wYXJlIHNhbGVzIGRpc3RyaWJ1dGlvbiBhbmQgcHJvZml0YWJpbGl0eSBhY3Jvc3MgcmVnaW9ucwoKKipUYXNrczoqKgoKLSAgIElkZW50aWZ5IHdoaWNoIHJlZ2lvbiBoYXMgYm90aCBoaWdoIHNhbGVzIGFuZCBoaWdoIHByb2ZpdGFiaWxpdHkKCi0gICBGaW5kIGFueSByZWdpb25zIHdpdGggbmVnYXRpdmUgcHJvZml0cwoKLSAgIEFuYWx5emUgaWYgaGlnaCBzYWxlcyBhbHdheXMgY29ycmVsYXRlIHdpdGggaGlnaCBwcm9maXRzCgotICAgUHJvcG9zZSByZWdpb25hbC1zcGVjaWZpYyBzdHJhdGVnaWVzIGJhc2VkIG9uIGZpbmRpbmdzCgojIyMgUXVlc3Rpb24gNDogV2hhdCBkb2VzIGN1c3RvbWVyIHNlZ21lbnRhdGlvbiByZXZlYWw/CgoqKk9iamVjdGl2ZToqKiBJZGVudGlmeSB2YWx1YWJsZSBjdXN0b21lciBncm91cHMgdXNpbmcgUkZNIGFuYWx5c2lzCgoqKlRhc2tzOioqCgotICAgQ2FsY3VsYXRlIHBlcmNlbnRhZ2Ugb2YgY3VzdG9tZXJzIGluIGVhY2ggc2VnbWVudAoKLSAgIElkZW50aWZ5IHdoaWNoIHNlZ21lbnQgZ2VuZXJhdGVzIHRoZSBtb3N0IHJldmVudWUKCi0gICBEZXZlbG9wIHJldGVudGlvbiBzdHJhdGVnaWVzIGZvciDigJxBdCBSaXNr4oCdIGN1c3RvbWVycwoKLSAgIFN1Z2dlc3QgbWFya2V0aW5nIGFwcHJvYWNoZXMgZm9yIOKAnEhpZ2ggU3BlbmRlcnPigJ0KCiMjIyBRdWVzdGlvbiA1OiBIb3cgZG9lcyBzaGlwcGluZyBtb2RlIGFmZmVjdCBwcm9maXRhYmlsaXR5PwoKKipPYmplY3RpdmU6KiogQW5hbHl6ZSBjb3N0LXRvLXNlcnZlIGFjcm9zcyBzaGlwcGluZyBtb2RlcwoKKipUYXNrczoqKgoKLSAgIENvbXBhcmUgcHJvZml0IG1hcmdpbnMgYWNyb3NzIHNoaXBwaW5nIG1vZGVzCgotICAgQ2FsY3VsYXRlIHByb2ZpdCBwZXIgb3JkZXIgZm9yIGVhY2ggc2hpcHBpbmcgbW9kZQoKLSAgIFN1Z2dlc3Qgb3B0aW1hbCBzaGlwcGluZyBzdHJhdGVneSBiYXNlZCBvbiBmaW5kaW5ncwoKIyMjIEV4dHJhIENoYWxsZW5nZToKCi0gICBJZGVudGlmeSAzIGFjdGlvbmFibGUgYnVzaW5lc3MgcmVjb21tZW5kYXRpb25zLgoKLSAgIFByb3Bvc2UgMiBuZXcgcXVlc3Rpb25zIGZvciBkZWVwZXIgYW5hbHlzaXMuCgotICAgRXN0aW1hdGUgcG90ZW50aWFsIGZpbmFuY2lhbCBpbXBhY3Qgb2YgeW91ciByZWNvbW1lbmRhdGlvbnMuCgojIyMjIERpc2N1c3Npb24gUG9pbnRzOgoKLSAgIEhvdyBkbyBzYWxlcyB0cmVuZHMgY29ycmVsYXRlIHdpdGggbWFya2V0aW5nIGluaXRpYXRpdmVzPwoKLSAgIEFyZSB0aGVyZSByZWdpb25hbCBwcmVmZXJlbmNlcyBmb3IgcHJvZHVjdCBjYXRlZ29yaWVzPwoKLSAgIFdoYXQgb3BlcmF0aW9uYWwgY2hhbmdlcyBjb3VsZCBpbXByb3ZlIGxvdy1tYXJnaW4gY2F0ZWdvcmllcz8KCi0gICBIb3cgbWlnaHQgY3VzdG9tZXIgc2VnbWVudGF0aW9uIGFmZmVjdCBpbnZlbnRvcnkgbWFuYWdlbWVudD8KCkRlbGl2ZXJhYmxlcyBTdWJtaXR0ZWQgbm90ZWJvb2sgKG9yIGZpbGUpIHdpdGggeW91ciByZXNwb25zZXMgdG8gZWFjaCBvZiB0aGUgZXhlcmNpc2VzLiBTdWJtaXNzaW9uIFVwb24gY29tcGxldGlvbiwgYWRkIHlvdXIgZGVsaXZlcmFibGVzIHRvIGdpdC4gVGhlbiBjb21taXQgZ2l0IGFuZCBwdXNoIHlvdXIgYnJhbmNoIHRvIHRoZSByZW1vdGUuIE1ha2UgYSBwdWxsIHJlcXVlc3QgYW5kIHBhc3RlIHRoZSBQUiBsaW5rIGluIHRoZSBzdWJtaXNzaW9uIGZpZWxkIGluIHRoZSBTdHVkZW50IFBvcnRhbC4gR29vZCBsdWNrIQo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiU3VwZXJzdG9yZSBFREEgQ2hhbGxlbmdlIgpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sKLS0tCgojIFN1cGVyc3RvcmUgRURBIENoYWxsZW5nZSB3aXRoIFIKCmBgYHtyfQpsaWJyYXJ5KGdncGxvdDIpCmxpYnJhcnkoZHBseXIpCmxpYnJhcnkocmVhZHIpCgojIExvYWRpbmcgdGhlIERhdGFzZXQKZGYgPC0gcmVhZC5jc3YoIi9Vc2Vycy9ndWlsbGVybW8vRG9jdW1lbnRzL0lyb25oYWNrL0RhdGFzZXRzL1NhbXBsZSAtIFN1cGVyc3RvcmUvU2FtcGxlIC0gU3VwZXJzdG9yZS5jc3YiKQpgYGAKCmBgYHtyfQojIENoZWNrIHRoZSBmaXJzdCBmZXcgcm93cyBvZiB0aGUgZGF0YXNldApoZWFkKGRmKQoKIyBDaGVjayB0aGUgc3RydWN0dXJlIG9mIHRoZSBkYXRhc2V0CnN0cihkZikKY29sbmFtZXMoZGYpCmBgYAoKYGBge3J9CiMgQ2hlY2sgdGhlIGZpcnN0IGZldyByb3dzIG9mIHRoZSAnT3JkZXIgRGF0ZScgY29sdW1uCmhlYWQoZGYkT3JkZXIuRGF0ZSApCgojIENoZWNrIHRoZSBjbGFzcyBvZiB0aGUgJ09yZGVyIERhdGUnIGNvbHVtbgpjbGFzcyhkZiRPcmRlci5EYXRlKQpgYGAKCiMjIFF1ZXN0aW9uIDE6IEhvdyBkb2VzIHNhbGVzIHBlcmZvcm1hbmNlIHZhcnkgb3ZlciB0aW1lPwoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCgojIyMjICoqRXhlY3V0aXZlIFN1bW1hcnkqKgoKU2FsZXMgdHJlbmRzIHJldmVhbCAqKnVuZXhwZWN0ZWQgcGVha3MgaW4gTWFyY2ggYW5kIEphbnVhcnkqKiwgYSAqKnNpZ25pZmljYW50IFNlcHRlbWJlciBzcGlrZSoqLCBhbmQgYSAqKm1vZGVyYXRlIHllYXItZW5kIHJpc2UqKi4gRGVzcGl0ZSB2b2xhdGlsaXR5LCB0aGUgYnVzaW5lc3MgYWNoaWV2ZWQgKipzdHJvbmcgWU9ZIGdyb3d0aCAoMzAlIGluIDIwMTYsIDIwJSBpbiAyMDE3KSoqLiBLZXkgb3Bwb3J0dW5pdGllcyBsaWUgaW4gZXhwbGFpbmluZyBhbm9tYWxvdXMgcGVha3MgYW5kIGFkZHJlc3NpbmcgbWlkLXllYXIgZGlwcy4KCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQoKYGBge3J9CiMgQ29udmVydCAnT3JkZXIgRGF0ZScgdG8gRGF0ZSBmb3JtYXQgKG1tL2RkL3l5eXkpCmRmJE9yZGVyLkRhdGUgPC0gYXMuRGF0ZShkZiRPcmRlci5EYXRlLCBmb3JtYXQgPSAiJW0vJWQvJVkiKQpkZiRTaGlwLkRhdGUgPC0gYXMuRGF0ZShkZiRTaGlwLkRhdGUsIGZvcm1hdCA9ICIlbS8lZC8lWSIpCgojIEV4dHJhY3QgeWVhciBhbmQgbW9udGggZm9yIGdyb3VwaW5nCmRmJFllYXJNb250aCA8LSBmb3JtYXQoZGYkT3JkZXIuRGF0ZSwgIiVZLSVtIikKCiMgQ2hlY2sgdGhlIG5ldyBjb2x1bW5zCmhlYWQoZGZbLCBjKCJPcmRlci5EYXRlIiwgIlNoaXAuRGF0ZSIsICJZZWFyTW9udGgiKV0pCmBgYAoKKipHcm91cCBieSBZZWFyTW9udGggYW5kIGNhbGN1bGF0ZSB0b3RhbCBzYWxlcyoqCgotICAgSWRlbnRpZnkgd2hpY2ggbW9udGhzIGNvbnNpc3RlbnRseSBzaG93IHNhbGVzIHBlYWtzLgoKYGBge3J9CiMgR3JvdXAgYnkgWWVhck1vbnRoIGFuZCBjYWxjdWxhdGUgdG90YWwgc2FsZXMKbW9udGhseV9zYWxlcyA8LSBkZiAlPiUKICBncm91cF9ieShZZWFyTW9udGgpICU+JQogIHN1bW1hcmlzZShUb3RhbF9TYWxlcyA9IHN1bShTYWxlcykpCgojIFZpZXcgdGhlIHJlc3VsdApoZWFkKG1vbnRobHlfc2FsZXMpCmBgYAoKKipQbG90IG1vbnRobHkgc2FsZXMgdHJlbmRzKioKCmBgYHtyfQojIFBsb3QgbW9udGhseSBzYWxlcyB0cmVuZHMKZ2dwbG90KG1vbnRobHlfc2FsZXMsIGFlcyh4ID0gWWVhck1vbnRoLCB5ID0gVG90YWxfU2FsZXMsIGdyb3VwID0gMSkpICsKICBnZW9tX2xpbmUoY29sb3IgPSAiYmx1ZSIpICsKICBnZW9tX3BvaW50KGNvbG9yID0gInJlZCIpICsKICBnZW9tX3Ntb290aChtZXRob2QgPSAibG0iLCBjb2xvciA9ICJkYXJrZ3JlZW4iLCBzZSA9IEZBTFNFKSArICMgQWRkIHRyZW5kIGxpbmUgKwogIGxhYnModGl0bGUgPSAiTW9udGhseSBTYWxlcyBUcmVuZHMiLCB4ID0gIk1vbnRoIiwgeSA9ICJUb3RhbCBTYWxlcyIpICsKICB0aGVtZShheGlzLnRleHQueCA9IGVsZW1lbnRfdGV4dChhbmdsZSA9IDkwLCBoanVzdCA9IDEpKQpgYGAKCmBgYHtyfQojIENyZWF0ZSBhICJNb250aCIgY29sdW1uIChlLmcuLCAiSmFuIiwgIkZlYiIpCmRmJE1vbnRoIDwtIGZvcm1hdChkZiRPcmRlci5EYXRlLCAiJWIiKSAjICIlYiIgZ2l2ZXMgYWJicmV2aWF0ZWQgbW9udGggbmFtZXMKCiMgQ2FsY3VsYXRlIGF2ZXJhZ2Ugc2FsZXMgcGVyIG1vbnRoIGFjcm9zcyBhbGwgeWVhcnMKbW9udGhseV9hdmdfc2FsZXMgPC0gZGYgJT4lCiAgZ3JvdXBfYnkoTW9udGgpICU+JQogIHN1bW1hcmlzZShBdmdfU2FsZXMgPSBtZWFuKFNhbGVzKSkgJT4lCiAgYXJyYW5nZShtYXRjaChNb250aCwgbW9udGguYWJiKSkgIyBBcnJhbmdlIG1vbnRocyBpbiBjYWxlbmRhciBvcmRlciAoSmFuLURlYykKCmBgYAoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCgojIyMgKipEZXRhaWxlZCBBbmFseXNpcyoqCgojIyMjICoqMS4gTW9udGhseSBTYWxlcyBUcmVuZHMqKgoKKipPYnNlcnZhdGlvbnM6KipcCi0gKipLZXkgUGVha3M6KipcCi0gKipTZXB0ZW1iZXIqKjogQSBzaGFycCwgdW5leHBsYWluZWQgc3Bpa2UsIGZvbGxvd2VkIGJ5IGEgKipzdGVlcCBkaXAgaW4gT2N0b2JlcioqLiAtICoqTWFyY2gqKjogQ29uc2lzdGVudCBhbm51YWwgcGVhay5cCi0gKipOb3ZlbWJlci9EZWNlbWJlcioqOiBTbWFsbGVyIHBlYWtzIGNvbXBhcmVkIHRvIFNlcHRlbWJlci5cCi0gKipEaXBzOioqXAotICoqSmFudWFyeSoqOiBMYXJnZXN0IGFubnVhbCBkcm9wLlwKLSAqKk9jdG9iZXIqKjogU3VkZGVuIGRlY2xpbmUgcG9zdC1TZXB0ZW1iZXIgc3Bpa2UuCgoqKktleSBJbnNpZ2h0OioqXAotICoqU2VwdGVtYmVyIGFub21hbHkqKjogVGhlIFNlcHRlbWJlciBzcGlrZSBpcyB1bnVzdWFsIGFuZCB3YXJyYW50cyBpbnZlc3RpZ2F0aW9uIChlLmcuLCBidWxrIG9yZGVycywgcHJvbW90aW9ucywgb3IgZGF0YSBlcnJvcnMpLlwKLSAqKk1hcmNoIHN0cmVuZ3RoKio6IExpa2VseSB0aWVkIHRvIGZpc2NhbCB5ZWFyLWVuZCBvciBzZWFzb25hbCBCMkIgZGVtYW5kLgoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KCiMjIyMgKioyLiBBdmVyYWdlIFNhbGVzIGJ5IE1vbnRoIChBbGwgWWVhcnMpKioKCioqT2JzZXJ2YXRpb25zOioqXAotICoqUGVha3M6KipcCi0gKipKYW51YXJ5Kio6IEhpZ2hlc3QgYXZlcmFnZSBzYWxlcywgbGlrZWx5IGR1ZSB0byBwb3N0LWhvbGlkYXkgYnVsayBvcmRlcnMgb3IgdW5pcXVlIGFubnVhbCBjb250cmFjdHMuXAotICoqTWFyY2gqKjogU2Vjb25kLWhpZ2hlc3QsIHJlaW5mb3JjaW5nIGZpc2NhbCB5ZWFyLWVuZCBhY3Rpdml0eS5cCi0gKipZZWFyLUVuZCBUcmVuZCoqOlwKLSBBICoqZ3JhZHVhbCBpbmNyZWFzZSoqIGZyb20gQXVndXN0IHRvIERlY2VtYmVyLgoKYGBge3J9CiMgQ29udmVydCBNb250aCB0byBhIGZhY3RvciB3aXRoIG9yZGVyZWQgbGV2ZWxzIChKYW4tRGVjKQptb250aGx5X2F2Z19zYWxlcyRNb250aCA8LSBmYWN0b3IobW9udGhseV9hdmdfc2FsZXMkTW9udGgsIGxldmVscyA9IG1vbnRoLmFiYikKCiMgUGxvdCBhdmVyYWdlIHNhbGVzIGJ5IG1vbnRoCmdncGxvdChtb250aGx5X2F2Z19zYWxlcywgYWVzKHggPSBNb250aCwgeSA9IEF2Z19TYWxlcykpICsKICBnZW9tX2JhcihzdGF0ID0gImlkZW50aXR5IiwgZmlsbCA9ICJzdGVlbGJsdWUiKSArCiAgbGFicyh0aXRsZSA9ICJBdmVyYWdlIFNhbGVzIGJ5IE1vbnRoIChBbGwgWWVhcnMpIiwgeCA9ICJNb250aCIsIHkgPSAiQXZlcmFnZSBTYWxlcyIpICsKICB0aGVtZV9taW5pbWFsKCkKYGBgCgpgYGB7cn0KIyBFeHRyYWN0IHllYXIgZnJvbSB0aGUgZm9ybWF0dGVkIGRhdGUKZGYkWWVhciA8LSBmb3JtYXQoZGYkT3JkZXJEYXRlX0Zvcm1hdHRlZCwgIiVZIikKCiMgRW5zdXJlIHRoZSAnTW9udGgnIGNvbHVtbiBpcyBpbiB0aGUgY29ycmVjdCBvcmRlcgpkZiRNb250aCA8LSBmYWN0b3IoZGYkTW9udGgsIGxldmVscyA9IG1vbnRoLmFiYikKCiMgQ2FsY3VsYXRlIHRvdGFsIHNhbGVzIHBlciBtb250aCBmb3IgZWFjaCB5ZWFyCnllYXJseV9tb250aGx5X3NhbGVzIDwtIGRmICU+JQogIGdyb3VwX2J5KFllYXIsIE1vbnRoKSAlPiUKICBzdW1tYXJpc2UoVG90YWxfU2FsZXMgPSBzdW0oU2FsZXMpKSAlPiUKICBhcnJhbmdlKFllYXIsIE1vbnRoKQoKIyBQbG90CmdncGxvdCh5ZWFybHlfbW9udGhseV9zYWxlcywgYWVzKHggPSBNb250aCwgeSA9IFRvdGFsX1NhbGVzLCBjb2xvciA9IFllYXIsIGdyb3VwID0gWWVhcikpICsKICBnZW9tX2xpbmUobGluZXdpZHRoID0gMSkgKwogIGdlb21fcG9pbnQoKSArCiAgbGFicyh0aXRsZSA9ICJNb250aGx5IFNhbGVzIFRyZW5kcyBieSBZZWFyIiwgeCA9ICJNb250aCIsIHkgPSAiVG90YWwgU2FsZXMiKSArCiAgdGhlbWUoYXhpcy50ZXh0LnggPSBlbGVtZW50X3RleHQoYW5nbGUgPSA5MCkpICsKICBzY2FsZV9jb2xvcl9icmV3ZXIocGFsZXR0ZSA9ICJTZXQxIikKYGBgCgoqKktleSBJbnNpZ2h0OioqXAotICoqQ29udHJhZGljdG9yeSBzZWFzb25hbGl0eSoqOiBVbmxpa2UgdHlwaWNhbCByZXRhaWwgcGF0dGVybnMsIEphbnVhcnkgYW5kIE1hcmNoIGRyaXZlIGhpZ2hlciBzYWxlcyB0aGFuIHllYXItZW5kIG1vbnRocy4gKipXaGlsZSBKYW51YXJ5IGFuZCBNYXJjaCBzaG93IGNvbnNpc3RlbnQgc3RyZW5ndGggaW4gYXZlcmFnZSBzYWxlcywgeWVhcmx5IHRyZW5kcyByZXZlYWwgdm9sYXRpbGl0eSBpbiBRNCAoZS5nLiwgYSBzdHJvbmcgU2VwdGVtYmVyIDIwMTYgZm9sbG93ZWQgYnkgYW4gT2N0b2JlciBkaXApLiBUaGlzIHN1Z2dlc3RzIHRoYXQgd2hpbGUgdGhlIGJ1c2luZXNzIGNhbiByZWx5IG9uIFExIHN0YWJpbGl0eSwgUTQgcGVyZm9ybWFuY2UgaXMgaGlnaGx5IHNlbnNpdGl2ZSB0byBhbm51YWwgZmFjdG9ycyBsaWtlIHByb21vdGlvbnMsIGxvZ2lzdGljcywgb3IgbWFya2V0IHNoaWZ0cy4qKgoKIyMjICoqU3VtbWFyeSBvZiBQbG90IERpZmZlcmVuY2VzKioKCi0gICAqKkF2ZXJhZ2UgU2FsZXMgYnkgTW9udGgqKjogSGlnaGxpZ2h0cyAqY29uc2lzdGVudCBtb250aGx5IHBhdHRlcm5zKiAoZS5nLiwgSmFudWFyeS9NYXJjaCBzdHJlbmd0aCkgYnkgc21vb3RoaW5nIG91dCB5ZWFyLXRvLXllYXIgbm9pc2UuXAotICAgKipNb250aGx5IFRyZW5kcyBieSBZZWFyKio6IFJldmVhbHMgKmFubnVhbCB2b2xhdGlsaXR5KiAoZS5nLiwgYSAyMDE2IFNlcHRlbWJlciBzcGlrZSwgMjAxNSBkaXBzKSwgc2hvd2luZyBob3cgdW5pcXVlIGV2ZW50cyBvciBzdHJhdGVnaWVzIGltcGFjdCBzaG9ydC10ZXJtIHBlcmZvcm1hbmNlLgoKKipXaHkgVGhleSBEaWZmZXIqKjogQXZlcmFnZXMgZW1waGFzaXplIHJlbGlhYmlsaXR5OyB5ZWFybHkgdHJlbmRzIGV4cG9zZSB2YXJpYWJpbGl0eS4gSmFudWFyeS9NYXJjaCBhcmUgc3RhYmxlIGFuY2hvcnMsIHdoaWxlIFE0IGZsdWN0dWF0ZXMgd2l0aCBhbm51YWwgZmFjdG9ycy4KCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQoKIyMjIyAqKjMuIFllYXItb3Zlci1ZZWFyIChZT1kpIEdyb3d0aCoqCgoqKk9ic2VydmF0aW9uczoqKlwKLSAqKjIwMTUqKjogKiotNSUgZGVjbGluZSoqIChwb3RlbnRpYWwgb3BlcmF0aW9uYWwgbWlzc3RlcHMgb3IgbWFya2V0IHNoaWZ0cykuXAotICoqMjAxNioqOiAqKiszMCUgZ3Jvd3RoKiogKHJlY292ZXJ5IGFuZCBzdHJhdGVnaWMgYWRqdXN0bWVudHMpLlwKLSAqKjIwMTcqKjogKiorMjAlIGdyb3d0aCoqIChzdXN0YWluZWQgcHJvZ3Jlc3MgZGVzcGl0ZSBzbWFsbGVyIGdhaW5zKS4KCioqS2V5IEluc2lnaHQ6KipcCi0gKipSZXNpbGllbnQgZ3Jvd3RoKio6IFBvc3QtMjAxNSByZWNvdmVyeSBoaWdobGlnaHRzIGFkYXB0YWJpbGl0eSwgYnV0IGlycmVndWxhciBtb250aGx5IHRyZW5kcyBzdWdnZXN0IHVudGFwcGVkIHBvdGVudGlhbC4KCmBgYHtyfQojIEV4dHJhY3QgeWVhciBmcm9tIFllYXJNb250aAptb250aGx5X3NhbGVzJFllYXIgPC0gc3Vic3RyKG1vbnRobHlfc2FsZXMkWWVhck1vbnRoLCAxLCA0KQoKIyBDYWxjdWxhdGUgWU9ZIGdyb3d0aCByYXRlCnlveV9ncm93dGggPC0gbW9udGhseV9zYWxlcyAlPiUKICBncm91cF9ieShZZWFyKSAlPiUKICBzdW1tYXJpc2UoVG90YWxfU2FsZXMgPSBzdW0oVG90YWxfU2FsZXMpKSAlPiUKICBtdXRhdGUoWU9ZX0dyb3d0aCA9IChUb3RhbF9TYWxlcyAtIGxhZyhUb3RhbF9TYWxlcykpIC8gbGFnKFRvdGFsX1NhbGVzKSAqIDEwMCkKCiMgVmlldyB0aGUgcmVzdWx0CiN5b3lfZ3Jvd3RoCgojIFBsb3QgWU9ZIGdyb3d0aCByYXRlCmdncGxvdCh5b3lfZ3Jvd3RoLCBhZXMoeCA9IFllYXIsIHkgPSBZT1lfR3Jvd3RoKSkgKwogIGdlb21fYmFyKHN0YXQgPSAiaWRlbnRpdHkiLCBmaWxsID0gIm9yYW5nZSIpICsKICBsYWJzKHRpdGxlID0gIlllYXItb3Zlci1ZZWFyIFNhbGVzIEdyb3d0aCBSYXRlIiwgeCA9ICJZZWFyIiwgeSA9ICJZT1kgR3Jvd3RoICglKSIpICsKICB0aGVtZV9taW5pbWFsKCkKCmBgYAoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCgojIyMgKipSZWNvbW1lbmRhdGlvbnMqKgoKMS4gICoqSW52ZXN0aWdhdGUgU2VwdGVtYmVyIFNwaWtlKio6CiAgICAtICAgQW5hbHl6ZSAyMDE04oCTMjAxNyBTZXB0ZW1iZXIgdHJhbnNhY3Rpb25zIGZvciBvdXRsaWVycyAoZS5nLiwgYnVsayBjb3Jwb3JhdGUgb3JkZXJzLCBwcm9tb3Rpb25zKS5cCiAgICAtICAgSWYgaW50ZW50aW9uYWwsIHJlcGxpY2F0ZSBzdHJhdGVnaWVzIGluIG90aGVyIG1vbnRocy4gSWYgYWNjaWRlbnRhbCAoZS5nLiwgZGF0YSBlbnRyeSBlcnJvcnMpLCBjb3JyZWN0IHJlY29yZHMuCjIuICAqKkxldmVyYWdlIE1hcmNoIGFuZCBKYW51YXJ5IFBlYWtzKio6CiAgICAtICAgVGFyZ2V0IEIyQiBjbGllbnRzIGluIE1hcmNoIHdpdGggdGFpbG9yZWQgcHJvbW90aW9ucyAoZS5nLiwgZmlzY2FsIHllYXItZW5kIGRpc2NvdW50cykuXAogICAgLSAgIENhcGl0YWxpemUgb24gSmFudWFyeSBkZW1hbmQgKGUuZy4sIOKAnE5ldyBZZWFyIFJlc2V04oCdIGNhbXBhaWducyBmb3IgcmVjdXJyaW5nIGNvbnRyYWN0cykuCjMuICAqKkFkZHJlc3MgT2N0b2JlciBEaXAqKjoKICAgIC0gICBNaXRpZ2F0ZSBwb3N0LVNlcHRlbWJlciBzbHVtcCB3aXRoIGZsYXNoIHNhbGVzIG9yIGxveWFsdHkgaW5jZW50aXZlcyAoZS5nLiwg4oCcUHJlLUhvbGlkYXkgRWFybHkgQWNjZXNz4oCdKS4KNC4gICoqSW1wcm92ZSBZZWFyLUVuZCBDb25zaXN0ZW5jeSoqOgogICAgLSAgIEFsaWduIE5vdmVtYmVyL0RlY2VtYmVyIHN0cmF0ZWdpZXMgd2l0aCBTZXB0ZW1iZXLigJlzIHN1Y2Nlc3MgKGUuZy4sIGV4dGVuZCBwcm9tb3Rpb25zIHRvIGF2b2lkIE9jdG9iZXIgZHJvcC1vZmYpLgoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCgojIyMgKipDb25jbHVzaW9uKioKClRoZSBTdXBlcnN0b3Jl4oCZcyBzYWxlcyBwYXR0ZXJucyBkZWZ5IHRyYWRpdGlvbmFsIHJldGFpbCBzZWFzb25hbGl0eSwgd2l0aCAqKnN0cmVuZ3RoIGluIFExIChKYW51YXJ5LCBNYXJjaCkqKiBhbmQgYW4gKiphbm9tYWxvdXMgU2VwdGVtYmVyIHNwaWtlKiouIEJ5IGRlY29kaW5nIHRoZXNlIHRyZW5kcyBhbmQgc3RhYmlsaXppbmcgeWVhci1lbmQgZXhlY3V0aW9uLCB0aGUgYnVzaW5lc3MgY2FuIHVubG9jayBmdXJ0aGVyIGdyb3d0aC4KCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQoKIyBRdWVzdGlvbiAyOiBXaGljaCBwcm9kdWN0IGNhdGVnb3JpZXMgaGF2ZSB0aGUgYmVzdC93b3JzdCBwcm9maXQgbWFyZ2lucz8KCioqSWRlbnRpZnkgaGlnaC9sb3cgcGVyZm9ybWluZyBwcm9kdWN0IGNhdGVnb3JpZXMqKgoKYGBge3J9CiMgQ2FsY3VsYXRlIHByb2ZpdCBtYXJnaW4gZm9yIGVhY2ggcm93CmRmJFByb2ZpdE1hcmdpbiA8LSAoZGYkUHJvZml0IC8gZGYkU2FsZXMpICogMTAwCgojIEdyb3VwIGJ5IENhdGVnb3J5IGFuZCBjYWxjdWxhdGUgYXZlcmFnZSBwcm9maXQgbWFyZ2luCmNhdGVnb3J5X21hcmdpbnMgPC0gZGYgJT4lCiAgZ3JvdXBfYnkoQ2F0ZWdvcnkpICU+JQogIHN1bW1hcmlzZSgKICAgIEF2Z19Qcm9maXRNYXJnaW4gPSBtZWFuKFByb2ZpdE1hcmdpbiwgbmEucm0gPSBUUlVFKSwKICAgIFRvdGFsX1NhbGVzID0gc3VtKFNhbGVzKSwKICAgIFRvdGFsX1Byb2ZpdCA9IHN1bShQcm9maXQpCiAgKSAlPiUKICBhcnJhbmdlKEF2Z19Qcm9maXRNYXJnaW4pCgojIFZpZXcgdGhlIHJlc3VsdApjYXRlZ29yeV9tYXJnaW5zCgpgYGAKCiMjIyBBbmFseXNpcyBmcm9tIHRoZSBkYXRhOgoKLSAgICoqVGVjaG5vbG9neSoqIGhhcyB0aGUgaGlnaGVzdCBhdmVyYWdlIHByb2ZpdCBtYXJnaW46ICoqMTUuNjElKiouXAotICAgKipGdXJuaXR1cmUqKiBoYXMgdGhlIGxvd2VzdCBhdmVyYWdlIHByb2ZpdCBtYXJnaW46ICoqMy44OCUqKi4KCioqUmVzdWx0OioqIFRoZSBwcm9maXQgbWFyZ2luIGRpZmZlcmVuY2UgYmV0d2VlbiBUZWNobm9sb2d5IGFuZCBGdXJuaXR1cmUgaXMgKioxMS43MyBwZXJjZW50YWdlIHBvaW50cyoqLgoKYGBge3J9CiMgUGxvdCBhdmVyYWdlIHByb2ZpdCBtYXJnaW5zIGJ5IGNhdGVnb3J5CmdncGxvdChjYXRlZ29yeV9tYXJnaW5zLCBhZXMoeCA9IHJlb3JkZXIoQ2F0ZWdvcnksIEF2Z19Qcm9maXRNYXJnaW4pLCB5ID0gQXZnX1Byb2ZpdE1hcmdpbikpICsKICBnZW9tX2JhcihzdGF0ID0gImlkZW50aXR5IiwgZmlsbCA9ICJzdGVlbGJsdWUiKSArCiAgbGFicyh0aXRsZSA9ICJBdmVyYWdlIFByb2ZpdCBNYXJnaW4gYnkgUHJvZHVjdCBDYXRlZ29yeSIsIHggPSAiQ2F0ZWdvcnkiLCB5ID0gIkF2ZXJhZ2UgUHJvZml0IE1hcmdpbiAoJSkiKSArCiAgdGhlbWVfbWluaW1hbCgpICsKICB0aGVtZShheGlzLnRleHQueCA9IGVsZW1lbnRfdGV4dChhbmdsZSA9IDQ1LCBoanVzdCA9IDEpKQpgYGAKCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQoKIyMjICoqU3VnZ2VzdGVkIFN0cmF0ZWdpZXMgdG8gSW1wcm92ZSBMb3ctUGVyZm9ybWluZyBDYXRlZ29yaWVzKioKCiMjIyMgKipXaHkgRnVybml0dXJlIEhhcyBMb3cgUHJvZml0IE1hcmdpbnMqKgoKLSAgICoqSGlnaCBDb3N0cyoqOiBGdXJuaXR1cmUgb2Z0ZW4gaGFzIGhpZ2ggc2hpcHBpbmcgYW5kIHN0b3JhZ2UgY29zdHMgZHVlIHRvIGl0cyBzaXplIGFuZCB3ZWlnaHQuXAotICAgKipEaXNjb3VudHMqKjogRnJlcXVlbnQgZGlzY291bnRzIG9yIHByb21vdGlvbnMgbWF5IGVyb2RlIG1hcmdpbnMuXAotICAgKipDb21wZXRpdGlvbioqOiBUaGUgbWFya2V0IG1heSBiZSBzYXR1cmF0ZWQsIGZvcmNpbmcgbG93ZXIgcHJpY2VzLgoKIyMjIyAqKlN0cmF0ZWdpZXMgdG8gSW1wcm92ZSBGdXJuaXR1cmUgUHJvZml0YWJpbGl0eSoqCgoxLiAgKipPcHRpbWl6ZSBQcmljaW5nOioqCiAgICAtICAgKipSZWR1Y2UgRGlzY291bnRzKio6IExpbWl0IHByb21vdGlvbnMgdG8gbWFpbnRhaW4gaGlnaGVyIHByaWNlcy5cCiAgICAtICAgKipCdW5kbGUgUHJvZHVjdHMqKjogT2ZmZXIgZnVybml0dXJlIGJ1bmRsZXMgd2l0aCBoaWdoLW1hcmdpbiBpdGVtcyAoZS5nLiwgb2ZmaWNlIGNoYWlycyB3aXRoIGRlc2tzKS4KMi4gICoqUmVkdWNlIENvc3RzOioqCiAgICAtICAgKipOZWdvdGlhdGUgU2hpcHBpbmcgUmF0ZXMqKjogUGFydG5lciB3aXRoIGxvZ2lzdGljcyBwcm92aWRlcnMgZm9yIGJ1bGsgZGlzY291bnRzLlwKICAgIC0gICAqKlN0cmVhbWxpbmUgSW52ZW50b3J5Kio6IFJlZHVjZSBzdG9yYWdlIGNvc3RzIGJ5IG9wdGltaXppbmcgc3RvY2sgbGV2ZWxzLgozLiAgKipJbmNyZWFzZSBWYWx1ZSBQZXJjZXB0aW9uOioqCiAgICAtICAgKipVcHNlbGwgUHJlbWl1bSBQcm9kdWN0cyoqOiBIaWdobGlnaHQgaGlnaGVyLW1hcmdpbiBmdXJuaXR1cmUgaXRlbXMgKGUuZy4sIGVyZ29ub21pYyBjaGFpcnMpLlwKICAgIC0gICAqKkVuaGFuY2UgTWFya2V0aW5nKio6IEVtcGhhc2l6ZSBxdWFsaXR5IGFuZCBkdXJhYmlsaXR5IHRvIGp1c3RpZnkgaGlnaGVyIHByaWNlcy4KNC4gICoqSW1wcm92ZSBPcGVyYXRpb25hbCBFZmZpY2llbmN5OioqCiAgICAtICAgKipBbmFseXplIExvc3MtTWFraW5nIFByb2R1Y3RzKio6IElkZW50aWZ5IHNwZWNpZmljIGZ1cm5pdHVyZSBpdGVtcyB3aXRoIG5lZ2F0aXZlIG1hcmdpbnMgYW5kIGRpc2NvbnRpbnVlIG9yIHJlcHJpY2UgdGhlbS5cCiAgICAtICAgKipMZXZlcmFnZSBUZWNobm9sb2d5Kio6IFVzZSBkYXRhIGFuYWx5dGljcyB0byBmb3JlY2FzdCBkZW1hbmQgYW5kIHJlZHVjZSBvdmVyc3RvY2tpbmcuCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KCiMjIyAqKkJ1c2luZXNzIEFuYWx5c2lzIFN1bW1hcnkqKgoKIyMjIyAqKlByb2ZpdCBNYXJnaW4gRGlmZmVyZW5jZSoqCgotICAgVGhlICoqcHJvZml0IG1hcmdpbiBnYXAqKiBiZXR3ZWVuIFRlY2hub2xvZ3kgKDE1LjYxJSkgYW5kIEZ1cm5pdHVyZSAoMy44OCUpIGlzICoqMTEuNzMgcGVyY2VudGFnZSBwb2ludHMqKiwgaGlnaGxpZ2h0aW5nIHNpZ25pZmljYW50IHJvb20gZm9yIGltcHJvdmVtZW50IGluIEZ1cm5pdHVyZSBwcm9maXRhYmlsaXR5LgoKIyMjIyAqKlN0cmF0ZWdpZXMgZm9yIEZ1cm5pdHVyZSoqCgoxLiAgKipQcmljaW5nIEFkanVzdG1lbnRzKio6IFJlZHVjZSBkaXNjb3VudHMgYW5kIGJ1bmRsZSB3aXRoIGhpZ2gtbWFyZ2luIGl0ZW1zLlwKMi4gICoqQ29zdCBSZWR1Y3Rpb24qKjogTmVnb3RpYXRlIHNoaXBwaW5nIHJhdGVzIGFuZCBvcHRpbWl6ZSBpbnZlbnRvcnkuXAozLiAgKipWYWx1ZSBBZGRpdGlvbioqOiBVcHNlbGwgcHJlbWl1bSBwcm9kdWN0cyBhbmQgZW5oYW5jZSBtYXJrZXRpbmcuXAo0LiAgKipPcGVyYXRpb25hbCBFZmZpY2llbmN5Kio6IERpc2NvbnRpbnVlIGxvc3MtbWFraW5nIGl0ZW1zIGFuZCB1c2UgZGF0YSBmb3IgZGVtYW5kIGZvcmVjYXN0aW5nLgoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCgojIFF1ZXN0aW9uIDM6IEhvdyBkbyByZWdpb25hbCBwZXJmb3JtYW5jZXMgY29tcGFyZT8KCiMjIyAqKkFuYWx5c2lzOiBEbyBIaWdoIFNhbGVzIEFsd2F5cyBDb3JyZWxhdGUgd2l0aCBIaWdoIFByb2ZpdHM/KioKCi0gICAqKldlc3QqKjogSGlnaCBzYWxlcyBhbmQgaGlnaCBwcm9maXRzIChzdHJvbmcgY29ycmVsYXRpb24pLgotICAgKipFYXN0Kio6IEhpZ2ggc2FsZXMgYnV0IHNsaWdodGx5IGxvd2VyIHByb2ZpdHMgKHN0aWxsIHN0cm9uZykuCi0gICAqKlNvdXRoKio6IE1vZGVyYXRlIHNhbGVzIGJ1dCBiZXR0ZXIgcHJvZml0cyB0aGFuICoqQ2VudHJhbCoqIChzYWxlcyBkb27igJl0IGZ1bGx5IGV4cGxhaW4gcHJvZml0cykuCi0gICAqKkNlbnRyYWwqKjogTW9kZXJhdGUgc2FsZXMgYnV0IHRoZSAqKmxvd2VzdCBwcm9maXRzKiogKHdlYWsgY29ycmVsYXRpb24pLgoKKipDb25jbHVzaW9uOioqIEhpZ2ggc2FsZXMgKipkbyBub3QgYWx3YXlzKiogY29ycmVsYXRlIHdpdGggaGlnaCBwcm9maXRzLiAqKkNlbnRyYWwqKiBpcyBhIGNsZWFyIGV4YW1wbGUgd2hlcmUgc2FsZXMgYXJlIGRlY2VudCwgYnV0IHByb2ZpdHMgYXJlIHNpZ25pZmljYW50bHkgbG93ZXIgZHVlIHRvIHBvb3IgbWFyZ2lucy4KCmBgYHtyfQojIEdyb3VwIGJ5IFJlZ2lvbiBhbmQgY2FsY3VsYXRlIHRvdGFsIHNhbGVzIGFuZCBwcm9maXQKcmVnaW9uX3BlcmZvcm1hbmNlIDwtIGRmICU+JQogIGdyb3VwX2J5KFJlZ2lvbikgJT4lCiAgc3VtbWFyaXNlKAogICAgVG90YWxfU2FsZXMgPSBzdW0oU2FsZXMpLAogICAgVG90YWxfUHJvZml0ID0gc3VtKFByb2ZpdCksCiAgICBBdmdfUHJvZml0TWFyZ2luID0gKHN1bShQcm9maXQpIC8gc3VtKFNhbGVzKSkgKiAxMDAKICApICU+JQogIGFycmFuZ2UoZGVzYyhUb3RhbF9TYWxlcykpCgojIFZpZXcgdGhlIHJlc3VsdApyZWdpb25fcGVyZm9ybWFuY2UKYGBgCgojIyMgKipSZWdpb25hbC1TcGVjaWZpYyBTdHJhdGVnaWVzKioKCiMjIyMgKioxLiBXZXN0IChIaWdoIFNhbGVzLCBIaWdoIFByb2ZpdCkqKgoKLSAgICoqU3RyYXRlZ3kqKjogTWFpbnRhaW4gbW9tZW50dW0gYnkgaW52ZXN0aW5nIGluIG1hcmtldGluZyBhbmQgZXhwYW5kaW5nIGhpZ2gtbWFyZ2luIHByb2R1Y3QgbGluZXMuXAotICAgKipBY3Rpb24qKjogRm9jdXMgb24gY3VzdG9tZXIgcmV0ZW50aW9uIGFuZCB1cHNlbGxpbmcgcHJlbWl1bSBwcm9kdWN0cy4KCmBgYHtyfQojIFBsb3QgdG90YWwgc2FsZXMgYnkgcmVnaW9uCmdncGxvdChyZWdpb25fcGVyZm9ybWFuY2UsIGFlcyh4ID0gcmVvcmRlcihSZWdpb24sIFRvdGFsX1NhbGVzKSwgeSA9IFRvdGFsX1NhbGVzKSkgKwogIGdlb21fYmFyKHN0YXQgPSAiaWRlbnRpdHkiLCBmaWxsID0gInN0ZWVsYmx1ZSIpICsKICBsYWJzKHRpdGxlID0gIlRvdGFsIFNhbGVzIGJ5IFJlZ2lvbiIsIHggPSAiUmVnaW9uIiwgeSA9ICJUb3RhbCBTYWxlcyAoJCkiKSArCiAgdGhlbWVfbWluaW1hbCgpICsKICB0aGVtZShheGlzLnRleHQueCA9IGVsZW1lbnRfdGV4dChhbmdsZSA9IDQ1LCBoanVzdCA9IDEpKQpgYGAKCiMjIyMgKioyLiBFYXN0IChIaWdoIFNhbGVzLCBNb2RlcmF0ZSBQcm9maXQpKioKCi0gICAqKlN0cmF0ZWd5Kio6IEltcHJvdmUgcHJvZml0YWJpbGl0eSBieSBvcHRpbWl6aW5nIGNvc3RzIGFuZCByZWR1Y2luZyBkaXNjb3VudHMuXAotICAgKipBY3Rpb24qKjogQW5hbHl6ZSBvcGVyYXRpb25hbCBpbmVmZmljaWVuY2llcyBhbmQgcmVuZWdvdGlhdGUgc3VwcGxpZXIgY29udHJhY3RzLgoKYGBge3J9CiMgUGxvdCB0b3RhbCBwcm9maXQgYnkgcmVnaW9uCmdncGxvdChyZWdpb25fcGVyZm9ybWFuY2UsIGFlcyh4ID0gcmVvcmRlcihSZWdpb24sIFRvdGFsX1Byb2ZpdCksIHkgPSBUb3RhbF9Qcm9maXQpKSArCiAgZ2VvbV9iYXIoc3RhdCA9ICJpZGVudGl0eSIsIGZpbGwgPSAib3JhbmdlIikgKwogIGxhYnModGl0bGUgPSAiVG90YWwgUHJvZml0IGJ5IFJlZ2lvbiIsIHggPSAiUmVnaW9uIiwgeSA9ICJUb3RhbCBQcm9maXQgKCQpIikgKwogIHRoZW1lX21pbmltYWwoKSArCiAgdGhlbWUoYXhpcy50ZXh0LnggPSBlbGVtZW50X3RleHQoYW5nbGUgPSA0NSwgaGp1c3QgPSAxKSkKYGBgCgojIyMjICoqMy4gU291dGggKE1vZGVyYXRlIFNhbGVzLCBNb2RlcmF0ZSBQcm9maXQpKioKCi0gICAqKlN0cmF0ZWd5Kio6IEJvb3N0IHNhbGVzIHdoaWxlIG1haW50YWluaW5nIGhlYWx0aHkgbWFyZ2lucy5cCi0gICAqKkFjdGlvbioqOiBMYXVuY2ggdGFyZ2V0ZWQgcHJvbW90aW9ucyBhbmQgaW1wcm92ZSBwcm9kdWN0IG1peCB0byBhdHRyYWN0IG1vcmUgY3VzdG9tZXJzLgoKYGBge3J9CiMgUGxvdCBhdmVyYWdlIHByb2ZpdCBtYXJnaW4gYnkgcmVnaW9uCmdncGxvdChyZWdpb25fcGVyZm9ybWFuY2UsIGFlcyh4ID0gcmVvcmRlcihSZWdpb24sIEF2Z19Qcm9maXRNYXJnaW4pLCB5ID0gQXZnX1Byb2ZpdE1hcmdpbikpICsKICBnZW9tX2JhcihzdGF0ID0gImlkZW50aXR5IiwgZmlsbCA9ICJkYXJrZ3JlZW4iKSArCiAgbGFicyh0aXRsZSA9ICJBdmVyYWdlIFByb2ZpdCBNYXJnaW4gYnkgUmVnaW9uIiwgeCA9ICJSZWdpb24iLCB5ID0gIkF2ZXJhZ2UgUHJvZml0IE1hcmdpbiAoJSkiKSArCiAgdGhlbWVfbWluaW1hbCgpICsKICB0aGVtZShheGlzLnRleHQueCA9IGVsZW1lbnRfdGV4dChhbmdsZSA9IDQ1LCBoanVzdCA9IDEpKQpgYGAKCiMjIyMgKio0LiBDZW50cmFsIChNb2RlcmF0ZSBTYWxlcywgTG93IFByb2ZpdCkqKgoKLSAgICoqU3RyYXRlZ3kqKjogQWRkcmVzcyBwcm9maXRhYmlsaXR5IGlzc3VlcyB1cmdlbnRseS5cCi0gICAqKkFjdGlvbioqOgogICAgLSAgIFJlZHVjZSBjb3N0cyAoZS5nLiwgc2hpcHBpbmcsIHN0b3JhZ2UpLlwKICAgIC0gICBEaXNjb250aW51ZSBsb3ctbWFyZ2luIHByb2R1Y3RzLlwKICAgIC0gICBGb2N1cyBvbiBoaWdoLW1hcmdpbiBjYXRlZ29yaWVzIHRvIGltcHJvdmUgb3ZlcmFsbCBwcm9maXRhYmlsaXR5LgoKIyMjICoqQnVzaW5lc3MgQW5hbHlzaXMgU3VtbWFyeSoqCgotICAgKipXZXN0KiogYW5kICoqRWFzdCoqIGFyZSBzdHJvbmcgcGVyZm9ybWVycyBidXQgbmVlZCBzdHJhdGVnaWVzIHRvIHN1c3RhaW4gZ3Jvd3RoIGFuZCBpbXByb3ZlIG1hcmdpbnMuXAotICAgKipTb3V0aCoqIHNob3dzIHBvdGVudGlhbCBidXQgcmVxdWlyZXMgdGFyZ2V0ZWQgZWZmb3J0cyB0byBpbmNyZWFzZSBzYWxlcy5cCi0gICAqKkNlbnRyYWwqKiBpcyB0aGUgd2Vha2VzdCByZWdpb24sIG5lZWRpbmcgdXJnZW50IGNvc3Qgb3B0aW1pemF0aW9uIGFuZCBwcm9kdWN0IG1peCBhZGp1c3RtZW50cy4KCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQoKIyBRdWVzdGlvbiA0OiBXaGF0IGRvZXMgY3VzdG9tZXIgc2VnbWVudGF0aW9uIHJldmVhbD8KCiMjIyAqKlN1bW1hcnkgb2YgV2hhdCBIYXMgQmVlbiBEb25lKioKCldlIHBlcmZvcm1lZCAqKlJGTSBhbmFseXNpcyoqIHRvIHNlZ21lbnQgY3VzdG9tZXJzIGludG8gZ3JvdXBzIGJhc2VkIG9uIHRoZWlyIHB1cmNoYXNpbmcgYmVoYXZpb3I6XAotICoqUmVjZW5jeSAoUik6KiogSG93IHJlY2VudGx5IHRoZXkgcHVyY2hhc2VkLlwKLSAqKkZyZXF1ZW5jeSAoRik6KiogSG93IG9mdGVuIHRoZXkgcHVyY2hhc2UuXAotICoqTW9uZXRhcnkgKE0pOioqIEhvdyBtdWNoIHRoZXkgc3BlbmQuCgpgYGB7cn0KIyBDYWxjdWxhdGUgUmVjZW5jeSAoZGF5cyBzaW5jZSBsYXN0IHB1cmNoYXNlKQpkZiRPcmRlci5EYXRlIDwtIGFzLkRhdGUoZGYkT3JkZXIuRGF0ZSwgZm9ybWF0ID0gIiVtLyVkLyVZIikKbWF4X2RhdGUgPC0gbWF4KGRmJE9yZGVyLkRhdGUpCnJmbV9kYXRhIDwtIGRmICU+JQogIGdyb3VwX2J5KEN1c3RvbWVyLklEKSAlPiUKICBzdW1tYXJpc2UoCiAgICBSZWNlbmN5ID0gYXMubnVtZXJpYyhtYXhfZGF0ZSAtIG1heChPcmRlci5EYXRlKSksCiAgICBGcmVxdWVuY3kgPSBuKCksCiAgICBNb25ldGFyeSA9IHN1bShTYWxlcykKICApCgojIFZpZXcgdGhlIHJlc3VsdApoZWFkKHJmbV9kYXRhKQpkaW0ocmZtX2RhdGEpCmBgYAoKVXNpbmcgdGhlc2UgbWV0cmljcywgd2UgY2F0ZWdvcml6ZWQgY3VzdG9tZXJzIGludG8gc2l4IHNlZ21lbnRzOlwKMS4gKipMb3lhbCBDdXN0b21lcnMqKlwKMi4gKipQb3RlbnRpYWwgTG95YWxpc3RzKipcCjMuICoqQ2hhbXBpb25zKipcCjQuICoqQXQgUmlzayoqXAo1LiAqKkNhbuKAmXQgTG9zZSoqXAo2LiAqKkhpZ2ggU3BlbmRlcnMqKgoKYGBge3J9CiMgQXNzaWduIFJGTSBzY29yZXMKcmZtX2RhdGEgPC0gcmZtX2RhdGEgJT4lCiAgbXV0YXRlKAogICAgUl9TY29yZSA9IG50aWxlKFJlY2VuY3ksIDQpLAogICAgRl9TY29yZSA9IG50aWxlKEZyZXF1ZW5jeSwgNCksCiAgICBNX1Njb3JlID0gbnRpbGUoTW9uZXRhcnksIDQpCiAgKQoKIyBDb21iaW5lIHNjb3JlcyBpbnRvIGEgc2luZ2xlIFJGTSBzY29yZQpyZm1fZGF0YSRSRk1fU2NvcmUgPC0gcmZtX2RhdGEkUl9TY29yZSArIHJmbV9kYXRhJEZfU2NvcmUgKyByZm1fZGF0YSRNX1Njb3JlCgojIFZpZXcgdGhlIHJlc3VsdApoZWFkKHJmbV9kYXRhKQpgYGAKCldlIHRoZW4gY2FsY3VsYXRlZCB0aGUgKipwZXJjZW50YWdlIG9mIGN1c3RvbWVycyoqIGluIGVhY2ggc2VnbWVudCBhbmQgdGhlICoqdG90YWwgcmV2ZW51ZSoqIHRoZXkgZ2VuZXJhdGUuCgpgYGB7cn0KIyBEZWZpbmUgc2VnbWVudHMgKGluY2x1ZGluZyBIaWdoIFNwZW5kZXJzKQpyZm1fZGF0YSA8LSByZm1fZGF0YSAlPiUKICBtdXRhdGUoCiAgICBTZWdtZW50ID0gY2FzZV93aGVuKAogICAgICBSRk1fU2NvcmUgPj0gMTEgfiAiQ2hhbXBpb25zIiwgICAgICAgICAgICAgICMgSGlnaCBSLCBGLCBNCiAgICAgIFJGTV9TY29yZSA+PSA5ICYgUkZNX1Njb3JlIDwgMTEgfiAiTG95YWwgQ3VzdG9tZXJzIiwgICMgSGlnaCBGLCBNLCBtb2RlcmF0ZSBSCiAgICAgIFJGTV9TY29yZSA+PSA3ICYgUkZNX1Njb3JlIDwgOSB+ICJQb3RlbnRpYWwgTG95YWxpc3RzIiwgICMgSGlnaCBSLCBNLCBtb2RlcmF0ZSBGCiAgICAgIFJGTV9TY29yZSA+PSA1ICYgUkZNX1Njb3JlIDwgNyB+ICJBdCBSaXNrIiwgICMgTG93IFIsIG1vZGVyYXRlIEYsIE0KICAgICAgUkZNX1Njb3JlID49IDMgJiBSRk1fU2NvcmUgPCA1IH4gIkNhbuKAmXQgTG9zZSIsICAjIExvdyBSLCBoaWdoIEYsIE0KICAgICAgTV9TY29yZSA9PSA0ICYgKFJfU2NvcmUgPD0gMiB8IEZfU2NvcmUgPD0gMikgfiAiSGlnaCBTcGVuZGVycyIsICAjIEhpZ2ggTSwgbG93IFIvRgogICAgICBUUlVFIH4gIk90aGVycyIgICMgQ2F0Y2gtYWxsIGZvciByZW1haW5pbmcgY3VzdG9tZXJzCiAgICApCiAgKQoKIyBDYWxjdWxhdGUgcGVyY2VudGFnZSBvZiBjdXN0b21lcnMgaW4gZWFjaCBzZWdtZW50CnNlZ21lbnRfc3VtbWFyeSA8LSByZm1fZGF0YSAlPiUKICBncm91cF9ieShTZWdtZW50KSAlPiUKICBzdW1tYXJpc2UoCiAgICBQZXJjZW50YWdlID0gbigpIC8gbnJvdyhyZm1fZGF0YSkgKiAxMDAsCiAgICBUb3RhbF9SZXZlbnVlID0gc3VtKE1vbmV0YXJ5KQogICkgJT4lCiAgYXJyYW5nZShkZXNjKFRvdGFsX1JldmVudWUpKQoKIyBWaWV3IHRoZSByZXN1bHQKc2VnbWVudF9zdW1tYXJ5CmBgYAoKYGBge3J9CiMgUGxvdCBjdXN0b21lciBzZWdtZW50cwpnZ3Bsb3Qoc2VnbWVudF9zdW1tYXJ5LCBhZXMoeCA9IHJlb3JkZXIoU2VnbWVudCwgLVBlcmNlbnRhZ2UpLCB5ID0gUGVyY2VudGFnZSkpICsKICBnZW9tX2JhcihzdGF0ID0gImlkZW50aXR5IiwgZmlsbCA9ICJzdGVlbGJsdWUiKSArCiAgbGFicyh0aXRsZSA9ICJDdXN0b21lciBTZWdtZW50YXRpb24iLCB4ID0gIlNlZ21lbnQiLCB5ID0gIlBlcmNlbnRhZ2Ugb2YgQ3VzdG9tZXJzICglKSIpICsKICB0aGVtZV9taW5pbWFsKCkgKwogIHRoZW1lKGF4aXMudGV4dC54ID0gZWxlbWVudF90ZXh0KGFuZ2xlID0gNDUsIGhqdXN0ID0gMSkpCmBgYAoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCgojIyMgKipCdXNpbmVzcyBBbmFseXNpcyoqCgojIyMjICoqS2V5IEZpbmRpbmdzOioqCgoxLiAgKipMb3lhbCBDdXN0b21lcnMgKDI1Ljg1JSk6KioKICAgIC0gICBHZW5lcmF0ZSB0aGUgKipoaWdoZXN0IHJldmVudWUgKFwkOTEyLDg4MykqKiwgbWFraW5nIHRoZW0gdGhlIG1vc3QgdmFsdWFibGUgc2VnbWVudC5cCiAgICAtICAgKipTdHJhdGVneToqKiBTdHJlbmd0aGVuIGxveWFsdHkgdGhyb3VnaCByZXdhcmRzIHByb2dyYW1zIGFuZCBwZXJzb25hbGl6ZWQgb2ZmZXJzLgoyLiAgKipQb3RlbnRpYWwgTG95YWxpc3RzICgzNC4xNyUpOioqCiAgICAtICAgUmVwcmVzZW50IHRoZSAqKmxhcmdlc3QgZ3JvdXAqKiBidXQgZ2VuZXJhdGUgKipsZXNzIHJldmVudWUgKFwkNzI3LDQ4NSkqKiB0aGFuIExveWFsIEN1c3RvbWVycy5cCiAgICAtICAgKipTdHJhdGVneToqKiBFbmNvdXJhZ2UgcmVwZWF0IHB1cmNoYXNlcyB3aXRoIHRhcmdldGVkIHByb21vdGlvbnMgYW5kIHVwc2VsbGluZy4KMy4gICoqQ2hhbXBpb25zICg2Ljk0JSk6KioKICAgIC0gICBTbWFsbCBidXQgaGlnaGx5IHZhbHVhYmxlLCBnZW5lcmF0aW5nICoqXCQzNzYsOTQ2IGluIHJldmVudWUqKi5cCiAgICAtICAgKipTdHJhdGVneToqKiBSZXdhcmQgd2l0aCBleGNsdXNpdmUgcGVya3MgKGUuZy4sIGVhcmx5IGFjY2VzcyB0byBzYWxlcywgVklQIHRyZWF0bWVudCkuCjQuICAqKkF0IFJpc2sgKDI0LjcyJSk6KioKICAgIC0gICBHZW5lcmF0ZSAqKlwkMjMyLDUwNyBpbiByZXZlbnVlKiogYnV0IGFyZSBhdCByaXNrIG9mIGNodXJuLlwKICAgIC0gICAqKlN0cmF0ZWd5OioqIFdpbiB0aGVtIGJhY2sgd2l0aCBwZXJzb25hbGl6ZWQgZGlzY291bnRzIGFuZCByZS1lbmdhZ2VtZW50IGNhbXBhaWducy4KNS4gICoqQ2Fu4oCZdCBMb3NlICg4LjMyJSk6KioKICAgIC0gICBHZW5lcmF0ZSB0aGUgKipsb3dlc3QgcmV2ZW51ZSAoXCQ0NywzNzkpKiogYW5kIGFyZSBsaWtlbHkgbGFwc2VkIGN1c3RvbWVycy5cCiAgICAtICAgKipTdHJhdGVneToqKiBSZWNvbm5lY3Qgd2l0aCBzcGVjaWFsIG9mZmVycyBvciBzdXJ2ZXlzIHRvIHVuZGVyc3RhbmQgdGhlaXIgbmVlZHMuCjYuICAqKkhpZ2ggU3BlbmRlcnMgKDAlKSoqOgogICAgLSAgIE5vIGN1c3RvbWVycyBmZWxsIGludG8gdGhpcyBjYXRlZ29yeSwgaW5kaWNhdGluZyBhIG1pc3NlZCBvcHBvcnR1bml0eSB0byBlbmdhZ2UgaGlnaC12YWx1ZSBidXQgaW5mcmVxdWVudCBidXllcnMuCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KCiMjIyMgKipSZWNvbW1lbmRhdGlvbnM6KioKCjEuICAqKkZvY3VzIG9uIExveWFsIEN1c3RvbWVycyBhbmQgQ2hhbXBpb25zOioqCiAgICAtICAgVGhlc2Ugc2VnbWVudHMgZHJpdmUgdGhlIG1vc3QgcmV2ZW51ZS4gSW52ZXN0IGluIHJldGVudGlvbiBzdHJhdGVnaWVzIGxpa2UgbG95YWx0eSBwcm9ncmFtcyBhbmQgZXhjbHVzaXZlIHBlcmtzLgoyLiAgKipDb252ZXJ0IFBvdGVudGlhbCBMb3lhbGlzdHM6KioKICAgIC0gICBFbmNvdXJhZ2UgcmVwZWF0IHB1cmNoYXNlcyB0aHJvdWdoIHRhcmdldGVkIG1hcmtldGluZyBhbmQgdXBzZWxsaW5nLgozLiAgKipSZS1lbmdhZ2UgQXQgUmlzayBhbmQgQ2Fu4oCZdCBMb3NlIEN1c3RvbWVyczoqKgogICAgLSAgIFVzZSBwZXJzb25hbGl6ZWQgb2ZmZXJzIGFuZCByZS1lbmdhZ2VtZW50IGNhbXBhaWducyB0byB3aW4gdGhlbSBiYWNrLgo0LiAgKipNb25pdG9yIEhpZ2ggU3BlbmRlcnM6KioKICAgIC0gICBJZGVudGlmeSBwb3RlbnRpYWwgaGlnaCBzcGVuZGVycyBieSBhbmFseXppbmcgY3VzdG9tZXJzIHdpdGggaGlnaCBtb25ldGFyeSB2YWx1ZSBidXQgbG93IGZyZXF1ZW5jeSBvciByZWNlbmN5LlwKCi0gICBMYXVuY2ggdGFyZ2V0ZWQgY2FtcGFpZ25zIHRvIGluY3JlYXNlIHRoZWlyIGVuZ2FnZW1lbnQgYW5kIHB1cmNoYXNlIGZyZXF1ZW5jeS4KCiMjIyAqKkNvbmNsdXNpb24qKgoKVGhlIHNlZ21lbnRhdGlvbiByZXZlYWxzIGEgc3Ryb25nIGJhc2Ugb2YgKipMb3lhbCBDdXN0b21lcnMqKiBhbmQgKipQb3RlbnRpYWwgTG95YWxpc3RzKiosIGJ1dCB0aGVyZeKAmXMgcm9vbSB0byBpbXByb3ZlIGVuZ2FnZW1lbnQgd2l0aCAqKkF0IFJpc2sqKiBhbmQgKipDYW7igJl0IExvc2UqKiBjdXN0b21lcnMuIFRoZSBhYnNlbmNlIG9mICoqSGlnaCBTcGVuZGVycyoqIGhpZ2hsaWdodHMgYW4gb3Bwb3J0dW5pdHkgdG8gaWRlbnRpZnkgYW5kIG51cnR1cmUgaGlnaC12YWx1ZSBidXQgaW5mcmVxdWVudCBidXllcnMuIEJ5IGltcGxlbWVudGluZyB0YXJnZXRlZCBzdHJhdGVnaWVzLCB0aGUgYnVzaW5lc3MgY2FuIG1heGltaXplIHJldmVudWUgYW5kIGN1c3RvbWVyIHJldGVudGlvbi4KCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQoKIyBRdWVzdGlvbiA1OiBIb3cgZG9lcyBzaGlwcGluZyBtb2RlIGFmZmVjdCBwcm9maXRhYmlsaXR5PwoKIyMjICoqQW5hbHlzaXMgUHJvZml0IE1hcmdpbnMgYnkgU2hpcHBpbmcgTW9kZSoqCgpGcm9tIHRoZSBkYXRhOiAtICoqU2Vjb25kIENsYXNzKiogaGFzIHRoZSBoaWdoZXN0IGF2ZXJhZ2UgcHJvZml0IG1hcmdpbiAoKioxNS4wMiUqKikuXAotICoqU2FtZSBEYXkqKiBmb2xsb3dzIHdpdGggKioxMy44MiUqKi5cCi0gKipGaXJzdCBDbGFzcyoqIGFuZCAqKlN0YW5kYXJkIENsYXNzKiogaGF2ZSBsb3dlciBtYXJnaW5zICgqKjExLjU5JSoqIGFuZCAqKjExLjAxJSoqLCByZXNwZWN0aXZlbHkpLgoKKipLZXkgSW5zaWdodDoqKlwKLSAqKlNlY29uZCBDbGFzcyoqIGlzIHRoZSBtb3N0IHByb2ZpdGFibGUgc2hpcHBpbmcgbW9kZSwgd2hpbGUgKipTdGFuZGFyZCBDbGFzcyoqICh0aGUgbW9zdCBjb21tb25seSB1c2VkKSBoYXMgdGhlIGxvd2VzdCBtYXJnaW4uCgpgYGB7cn0KIyBHcm91cCBieSBTaGlwLk1vZGUgYW5kIGNhbGN1bGF0ZSBhdmVyYWdlIHByb2ZpdCBtYXJnaW4Kc2hpcHBpbmdfbWFyZ2lucyA8LSBkZiAlPiUKICBncm91cF9ieShTaGlwLk1vZGUpICU+JQogIHN1bW1hcmlzZSgKICAgIEF2Z19Qcm9maXRNYXJnaW4gPSBtZWFuKFByb2ZpdE1hcmdpbiwgbmEucm0gPSBUUlVFKSwKICAgIFRvdGFsX1NhbGVzID0gc3VtKFNhbGVzKSwKICAgIFRvdGFsX1Byb2ZpdCA9IHN1bShQcm9maXQpCiAgKSAlPiUKICBhcnJhbmdlKGRlc2MoQXZnX1Byb2ZpdE1hcmdpbikpCgojIFZpZXcgdGhlIHJlc3VsdApzaGlwcGluZ19tYXJnaW5zCmBgYAoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCgojIyMgKipBbmFseXNpcyBQcm9maXQgUGVyIE9yZGVyIGJ5IFNoaXBwaW5nIE1vZGUqKgoKYGBge3J9CiMgQ2FsY3VsYXRlIHByb2ZpdCBwZXIgb3JkZXIgZm9yIGVhY2ggc2hpcHBpbmcgbW9kZQpwcm9maXRfcGVyX29yZGVyIDwtIGRmICU+JQogIGdyb3VwX2J5KFNoaXAuTW9kZSkgJT4lCiAgc3VtbWFyaXNlKAogICAgQXZnX1Byb2ZpdFBlck9yZGVyID0gbWVhbihQcm9maXQsIG5hLnJtID0gVFJVRSkKICApICU+JQogIGFycmFuZ2UoZGVzYyhBdmdfUHJvZml0UGVyT3JkZXIpKQoKIyBWaWV3IHRoZSByZXN1bHQKcHJvZml0X3Blcl9vcmRlcgpgYGAKCkZyb20gdGhlIGRhdGE6CgotICAgKipGaXJzdCBDbGFzcyoqIGhhcyB0aGUgaGlnaGVzdCBhdmVyYWdlIHByb2ZpdCBwZXIgb3JkZXIgKCoqXCQzMS44NCoqKS5cCi0gICAqKlNlY29uZCBDbGFzcyoqIGZvbGxvd3Mgd2l0aCAqKlwkMjkuNTQqKi5cCi0gICAqKlNhbWUgRGF5KiogYW5kICoqU3RhbmRhcmQgQ2xhc3MqKiBoYXZlIGxvd2VyIHByb2ZpdHMgcGVyIG9yZGVyICgqKlwkMjkuMjcqKiBhbmQgKipcJDI3LjQ5KiosIHJlc3BlY3RpdmVseSkuCgoqKktleSBJbnNpZ2h0OioqXAotIERlc3BpdGUgaGF2aW5nIGEgbG93ZXIgcHJvZml0IG1hcmdpbiwgKipGaXJzdCBDbGFzcyoqIGdlbmVyYXRlcyB0aGUgaGlnaGVzdCBwcm9maXQgcGVyIG9yZGVyLCBsaWtlbHkgZHVlIHRvIGhpZ2hlciBzYWxlcyB2YWx1ZXMgb3IgZmV3ZXIgZGlzY291bnRzLgoKYGBge3J9CiMgUGxvdCBhdmVyYWdlIHByb2ZpdCBtYXJnaW5zIGJ5IHNoaXBwaW5nIG1vZGUKZ2dwbG90KHNoaXBwaW5nX21hcmdpbnMsIGFlcyh4ID0gcmVvcmRlcihTaGlwLk1vZGUsIEF2Z19Qcm9maXRNYXJnaW4pLCB5ID0gQXZnX1Byb2ZpdE1hcmdpbikpICsKICBnZW9tX2JhcihzdGF0ID0gImlkZW50aXR5IiwgZmlsbCA9ICJzdGVlbGJsdWUiKSArCiAgbGFicyh0aXRsZSA9ICJBdmVyYWdlIFByb2ZpdCBNYXJnaW4gYnkgU2hpcHBpbmcgTW9kZSIsIHggPSAiU2hpcHBpbmcgTW9kZSIsIHkgPSAiQXZlcmFnZSBQcm9maXQgTWFyZ2luICglKSIpICsKICB0aGVtZV9taW5pbWFsKCkgKwogIHRoZW1lKGF4aXMudGV4dC54ID0gZWxlbWVudF90ZXh0KGFuZ2xlID0gNDUsIGhqdXN0ID0gMSkpCmBgYAoKYGBge3J9CiMgUGxvdCBhdmVyYWdlIHByb2ZpdCBwZXIgb3JkZXIgYnkgc2hpcHBpbmcgbW9kZQpnZ3Bsb3QocHJvZml0X3Blcl9vcmRlciwgYWVzKHggPSByZW9yZGVyKFNoaXAuTW9kZSwgQXZnX1Byb2ZpdFBlck9yZGVyKSwgeSA9IEF2Z19Qcm9maXRQZXJPcmRlcikpICsKICBnZW9tX2JhcihzdGF0ID0gImlkZW50aXR5IiwgZmlsbCA9ICJvcmFuZ2UiKSArCiAgbGFicyh0aXRsZSA9ICJBdmVyYWdlIFByb2ZpdCBwZXIgT3JkZXIgYnkgU2hpcHBpbmcgTW9kZSIsIHggPSAiU2hpcHBpbmcgTW9kZSIsIHkgPSAiQXZlcmFnZSBQcm9maXQgcGVyIE9yZGVyICgkKSIpICsKICB0aGVtZV9taW5pbWFsKCkgKwogIHRoZW1lKGF4aXMudGV4dC54ID0gZWxlbWVudF90ZXh0KGFuZ2xlID0gNDUsIGhqdXN0ID0gMSkpCmBgYAoKYGBge3J9CiMgRGF0YSBmb3IgcHJvZml0IG1hcmdpbnMKcHJvZml0X21hcmdpbl9kYXRhIDwtIGRhdGEuZnJhbWUoCiAgU2hpcC5Nb2RlID0gYygiU2Vjb25kIENsYXNzIiwgIlNhbWUgRGF5IiwgIkZpcnN0IENsYXNzIiwgIlN0YW5kYXJkIENsYXNzIiksCiAgQXZnX1Byb2ZpdE1hcmdpbiA9IGMoMTUuMDIsIDEzLjgyLCAxMS41OSwgMTEuMDEpCikKCiMgUGxvdApnZ3Bsb3QocHJvZml0X21hcmdpbl9kYXRhLCBhZXMoeCA9IHJlb3JkZXIoU2hpcC5Nb2RlLCAtQXZnX1Byb2ZpdE1hcmdpbiksIHkgPSBBdmdfUHJvZml0TWFyZ2luKSkgKwogIGdlb21fYmFyKHN0YXQgPSAiaWRlbnRpdHkiLCBmaWxsID0gInN0ZWVsYmx1ZSIpICsKICBsYWJzKHRpdGxlID0gIkF2ZXJhZ2UgUHJvZml0IE1hcmdpbiBieSBTaGlwcGluZyBNb2RlIiwgeCA9ICJTaGlwcGluZyBNb2RlIiwgeSA9ICJBdmVyYWdlIFByb2ZpdCBNYXJnaW4gKCUpIikgKwogIHRoZW1lX21pbmltYWwoKSArCiAgdGhlbWUoYXhpcy50ZXh0LnggPSBlbGVtZW50X3RleHQoYW5nbGUgPSA0NSwgaGp1c3QgPSAxKSkKYGBgCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KCiMjIyAqKlN1Z2dlc3Rpb246IE9wdGltYWwgU2hpcHBpbmcgU3RyYXRlZ3kqKgoKQmFzZWQgb24gdGhlIGFuYWx5c2lzLCBoZXJl4oCZcyBob3cgdG8gb3B0aW1pemUgc2hpcHBpbmcgbW9kZXMgZm9yIHByb2ZpdGFiaWxpdHk6CgoxLiAgKipTZWNvbmQgQ2xhc3MqKjoKICAgIC0gICAqKkFjdGlvbioqOiBQcm9tb3RlIHRoaXMgc2hpcHBpbmcgbW9kZSB0byBjdXN0b21lcnMsIGFzIGl0IGhhcyB0aGUgKipoaWdoZXN0IHByb2ZpdCBtYXJnaW4qKi5cCiAgICAtICAgKipXaHkqKjogSXQgYmFsYW5jZXMgY29zdCBhbmQgZGVsaXZlcnkgc3BlZWQgZWZmZWN0aXZlbHkuCjIuICAqKkZpcnN0IENsYXNzKio6CiAgICAtICAgKipBY3Rpb24qKjogVXNlIHRoaXMgbW9kZSBmb3IgaGlnaC12YWx1ZSBvcmRlcnMsIGFzIGl0IGdlbmVyYXRlcyB0aGUgKipoaWdoZXN0IHByb2ZpdCBwZXIgb3JkZXIqKi5cCiAgICAtICAgKipXaHkqKjogQ3VzdG9tZXJzIHBheWluZyBmb3IgZmFzdGVyIHNoaXBwaW5nIG1heSBhbHNvIHB1cmNoYXNlIGhpZ2hlci1tYXJnaW4gaXRlbXMuCjMuICAqKlNhbWUgRGF5Kio6CiAgICAtICAgKipBY3Rpb24qKjogTGltaXQgdGhpcyBtb2RlIHRvIHVyZ2VudCBvcmRlcnMgb3IgY2hhcmdlIGEgcHJlbWl1bSB0byBpbXByb3ZlIG1hcmdpbnMuXAogICAgLSAgICoqV2h5Kio6IFdoaWxlIHByb2ZpdGFibGUsIGl0IG1heSBub3Qgc2NhbGUgd2VsbCBkdWUgdG8gaGlnaGVyIG9wZXJhdGlvbmFsIGNvc3RzLgo0LiAgKipTdGFuZGFyZCBDbGFzcyoqOgogICAgLSAgICoqQWN0aW9uKio6IE9wdGltaXplIGNvc3RzIChlLmcuLCBidWxrIHNoaXBwaW5nIGRpc2NvdW50cykgdG8gaW1wcm92ZSBtYXJnaW5zLlwKICAgIC0gICAqKldoeSoqOiBJdOKAmXMgdGhlIG1vc3QgY29tbW9ubHkgdXNlZCBtb2RlIGJ1dCBoYXMgdGhlICoqbG93ZXN0IG1hcmdpbioqLgoKIyMjICoqQnVzaW5lc3MgQW5hbHlzaXMgU3VtbWFyeSoqCgojIyMjICoqS2V5IEZpbmRpbmdzOioqCgoxLiAgKipTZWNvbmQgQ2xhc3MqKiBpcyB0aGUgbW9zdCBwcm9maXRhYmxlIHNoaXBwaW5nIG1vZGUgKCoqMTUuMDIlIG1hcmdpbioqKS5cCjIuICAqKkZpcnN0IENsYXNzKiogZ2VuZXJhdGVzIHRoZSBoaWdoZXN0IHByb2ZpdCBwZXIgb3JkZXIgKCoqXCQzMS44NCoqKSwgZGVzcGl0ZSBhIGxvd2VyIG1hcmdpbi5cCjMuICAqKlN0YW5kYXJkIENsYXNzKiosIHRoZSBtb3N0IHdpZGVseSB1c2VkIG1vZGUsIGhhcyB0aGUgKipsb3dlc3QgbWFyZ2luICgxMS4wMSUpKiouCgojIyMjICoqUmVjb21tZW5kYXRpb25zOioqCgoxLiAgKipQcm9tb3RlIFNlY29uZCBDbGFzcyoqOiBFbmNvdXJhZ2UgY3VzdG9tZXJzIHRvIGNob29zZSB0aGlzIG1vZGUgZm9yIGJldHRlciBwcm9maXRhYmlsaXR5LlwKMi4gICoqTGV2ZXJhZ2UgRmlyc3QgQ2xhc3MqKjogVXNlIGl0IGZvciBoaWdoLXZhbHVlIG9yZGVycyB0byBtYXhpbWl6ZSBwcm9maXQgcGVyIG9yZGVyLgoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCgojIEV4dHJhIENoYWxsZW5nZToKCi0gICBJZGVudGlmeSAzIGFjdGlvbmFibGUgYnVzaW5lc3MgcmVjb21tZW5kYXRpb25zLgoKIyMjIyAqKjEuIEFjdGlvbmFibGUgQnVzaW5lc3MgUmVjb21tZW5kYXRpb25zKioKCkJhc2VkIG9uIHRoZSBhbmFseXNpcyBmcm9tIFF1ZXN0aW9ucyAx4oCTNSwgaGVyZSBhcmUgdGhyZWUgYWN0aW9uYWJsZSByZWNvbW1lbmRhdGlvbnM6CgoqKlJlY29tbWVuZGF0aW9uIDE6IE9wdGltaXplIFNoaXBwaW5nIE1vZGVzIGZvciBQcm9maXRhYmlsaXR5KipcCi0gKipBY3Rpb24qKjogUHJvbW90ZSAqKlNlY29uZCBDbGFzcyoqIHNoaXBwaW5nIChoaWdoZXN0IG1hcmdpbikgYW5kIHVzZSAqKkZpcnN0IENsYXNzKiogZm9yIGhpZ2gtdmFsdWUgb3JkZXJzIChoaWdoZXN0IHByb2ZpdCBwZXIgb3JkZXIpLlwKLSAqKkltcGFjdCoqOiBJbXByb3ZlIG92ZXJhbGwgcHJvZml0YWJpbGl0eSBieSByZWR1Y2luZyByZWxpYW5jZSBvbiBsb3ctbWFyZ2luICoqU3RhbmRhcmQgQ2xhc3MqKiBzaGlwcGluZy4KCioqUmVjb21tZW5kYXRpb24gMjogUmV0YWluIEF0LVJpc2sgQ3VzdG9tZXJzKipcCi0gKipBY3Rpb24qKjogTGF1bmNoIHRhcmdldGVkIHJldGVudGlvbiBjYW1wYWlnbnMgKGUuZy4sIHBlcnNvbmFsaXplZCBkaXNjb3VudHMsIGxveWFsdHkgcmV3YXJkcykgZm9yIHRoZSAqKkF0IFJpc2sqKiBzZWdtZW50ICgyNC43MiUgb2YgY3VzdG9tZXJzKS5cCi0gKipJbXBhY3QqKjogUmVkdWNlIGNodXJuIGFuZCBpbmNyZWFzZSByZXZlbnVlIGZyb20gYSBzaWduaWZpY2FudCBjdXN0b21lciBncm91cC4KCioqUmVjb21tZW5kYXRpb24gMzogTGV2ZXJhZ2UgU2Vhc29uYWwgVHJlbmRzKipcCi0gKipBY3Rpb24qKjogQ2FwaXRhbGl6ZSBvbiAqKkRlY2VtYmVyKiogYW5kICoqTWFyY2gqKiBzYWxlcyBwZWFrcyBieSBpbmNyZWFzaW5nIGludmVudG9yeSBhbmQgbWFya2V0aW5nIGVmZm9ydHMgZHVyaW5nIHRoZXNlIG1vbnRocy5cCi0gKipJbXBhY3QqKjogTWF4aW1pemUgcmV2ZW51ZSBkdXJpbmcgaGlnaC1kZW1hbmQgcGVyaW9kcyBhbmQgb2Zmc2V0IHNsb3dlciBtb250aHMgbGlrZSBKYW51YXJ5LgoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCgotICAgUHJvcG9zZSAyIG5ldyBxdWVzdGlvbnMgZm9yIGRlZXBlciBhbmFseXNpcy4KCiMjIyMgKioyLiBOZXcgUXVlc3Rpb25zIGZvciBEZWVwZXIgQW5hbHlzaXMqKgoKSGVyZSBhcmUgdHdvIG5ldyBxdWVzdGlvbnMgdG8gZXhwbG9yZSBmdXJ0aGVyOgoKKipRdWVzdGlvbiAxOiBIb3cgZG8gZGlzY291bnRzIGltcGFjdCBwcm9maXRhYmlsaXR5IGFjcm9zcyBwcm9kdWN0IGNhdGVnb3JpZXM/KipcCi0gKipXaHkqKjogRGlzY291bnRzIG1heSBlcm9kZSBtYXJnaW5zLCBlc3BlY2lhbGx5IGluIGxvdy1wZXJmb3JtaW5nIGNhdGVnb3JpZXMgbGlrZSBGdXJuaXR1cmUuIEFuYWx5emluZyB0aGlzIGNhbiBoZWxwIG9wdGltaXplIHByaWNpbmcgc3RyYXRlZ2llcy4KCioqUXVlc3Rpb24gMjogV2hhdCBpcyB0aGUgY3VzdG9tZXIgbGlmZXRpbWUgdmFsdWUgKENMVikgYnkgc2VnbWVudCwgYW5kIGhvdyBjYW4gaXQgYmUgaW1wcm92ZWQ/KipcCi0gKipXaHkqKjogVW5kZXJzdGFuZGluZyBDTFYgY2FuIGhlbHAgcHJpb3JpdGl6ZSByZXRlbnRpb24gZWZmb3J0cyBhbmQgYWxsb2NhdGUgbWFya2V0aW5nIGJ1ZGdldHMgbW9yZSBlZmZlY3RpdmVseS4KCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQoKLSAgIEVzdGltYXRlIHBvdGVudGlhbCBmaW5hbmNpYWwgaW1wYWN0IG9mIHlvdXIgcmVjb21tZW5kYXRpb25zLgoKIyMjIyAqKjMuIEVzdGltYXRlIFBvdGVudGlhbCBGaW5hbmNpYWwgSW1wYWN0KioKCkxldOKAmXMgZXN0aW1hdGUgdGhlIGZpbmFuY2lhbCBpbXBhY3Qgb2YgdGhlIHJlY29tbWVuZGF0aW9uczoKCioqUmVjb21tZW5kYXRpb24gMTogT3B0aW1pemUgU2hpcHBpbmcgTW9kZXMqKlwKLSAqKkN1cnJlbnQgUHJvZml0IE1hcmdpbiBmb3IgU3RhbmRhcmQgQ2xhc3MqKjogMTEuMDElXAotICoqVGFyZ2V0IFByb2ZpdCBNYXJnaW4gKGJ5IHNoaWZ0aW5nIHRvIFNlY29uZCBDbGFzcykqKjogMTUuMDIlXAotICoqUG90ZW50aWFsIEluY3JlYXNlKio6IDQuMDElXAotICoqRXN0aW1hdGVkIFJldmVudWUgSW1wYWN0Kio6IElmIDUwJSBvZiBTdGFuZGFyZCBDbGFzcyBvcmRlcnMgc2hpZnQgdG8gU2Vjb25kIENsYXNzLCB0aGUgcHJvZml0IGluY3JlYXNlIGNvdWxkIGJlOlwKJCQKICAwLjUgXHRpbWVzIDEsMzU4LDIxNS43IFx0aW1lcyA0LjAxXCUgPSBcJDI3LDI1MCBcdGV4dHsgYW5udWFsbHl9CiAgJCQKCioqUmVjb21tZW5kYXRpb24gMjogUmV0YWluIEF0LVJpc2sgQ3VzdG9tZXJzKipcCi0gKipBdC1SaXNrIFJldmVudWUqKjogXCQyMzIsNTA3LjQwXAotICoqVGFyZ2V0IFJldGVudGlvbiBSYXRlKio6IDIwJVwKLSAqKkVzdGltYXRlZCBSZXZlbnVlIEltcGFjdCoqOiBSZXRhaW5pbmcgMjAlIG9mIEF0LVJpc2sgY3VzdG9tZXJzIGNvdWxkIHNhdmU6XAokJAogIDAuMiBcdGltZXMgMjMyLDUwNy40MCA9IFwkNDYsNTAxIFx0ZXh0eyBhbm51YWxseX0KICAkJAoKKipSZWNvbW1lbmRhdGlvbiAzOiBMZXZlcmFnZSBTZWFzb25hbCBUcmVuZHMqKlwKLSAqKkRlY2VtYmVyIFNhbGVzKio6IFwkNDgsMDAwIChleGFtcGxlKVwKLSAqKlRhcmdldCBJbmNyZWFzZSoqOiAxMCVcCi0gKipFc3RpbWF0ZWQgUmV2ZW51ZSBJbXBhY3QqKjogQSAxMCUgaW5jcmVhc2UgaW4gRGVjZW1iZXIgc2FsZXMgY291bGQgZ2VuZXJhdGU6XAokJAogIDAuMSBcdGltZXMgNDgsMDAwID0gXCQ0LDgwMCBcdGV4dHsgYW5udWFsbHl9CiAgJCQKCioqVG90YWwgRXN0aW1hdGVkIEltcGFjdCoqOlwKJCQKMjcsMjUwICsgNDYsNTAxICsgNCw4MDAgPSBcJDc4LDU1MSBcdGV4dHsgYW5udWFsbHl9CiQkCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KCiMjIyAqKkRpc2N1c3Npb24gUG9pbnRzKioKClRoZXNlIHdlcmUgYWxyZWFkeSBpbXBsaWNpdGx5IGNvdmVyZWQgaW4gdGhlIGFuYWx5c2lzLCBidXQgaGVyZeKAmXMgaG93IHRoZXkgdGllIGluOgoKMS4gICoqSG93IGRvIHNhbGVzIHRyZW5kcyBjb3JyZWxhdGUgd2l0aCBtYXJrZXRpbmcgaW5pdGlhdGl2ZXM/KioKICAgIC0gICBQZWFrcyBpbiBEZWNlbWJlciBhbmQgTWFyY2ggbGlrZWx5IGFsaWduIHdpdGggaG9saWRheSBwcm9tb3Rpb25zIGFuZCBmaXNjYWwgeWVhci1lbmQgc3BlbmRpbmcuXAogICAgLSAgIERpcHMgaW4gSmFudWFyeSBzdWdnZXN0IGEgbmVlZCBmb3IgcG9zdC1ob2xpZGF5IG1hcmtldGluZyBjYW1wYWlnbnMuCjIuICAqKkFyZSB0aGVyZSByZWdpb25hbCBwcmVmZXJlbmNlcyBmb3IgcHJvZHVjdCBjYXRlZ29yaWVzPyoqCiAgICAtICAgVGhpcyB3YXMgcGFydGlhbGx5IGFkZHJlc3NlZCBpbiAqKlF1ZXN0aW9uIDMqKiwgd2hlcmUgd2UgYW5hbHl6ZWQgcmVnaW9uYWwgcGVyZm9ybWFuY2UuIEEgZGVlcGVyIGRpdmUgY291bGQgcmV2ZWFsIHNwZWNpZmljIGNhdGVnb3J5IHByZWZlcmVuY2VzIGJ5IHJlZ2lvbi4KMy4gICoqV2hhdCBvcGVyYXRpb25hbCBjaGFuZ2VzIGNvdWxkIGltcHJvdmUgbG93LW1hcmdpbiBjYXRlZ29yaWVzPyoqCiAgICAtICAgRm9yICoqRnVybml0dXJlKiogKGxvd2VzdCBtYXJnaW4pLCB3ZSByZWNvbW1lbmRlZCBjb3N0IG9wdGltaXphdGlvbiwgYnVuZGxpbmcsIGFuZCB1cHNlbGxpbmcuCjQuICAqKkhvdyBtaWdodCBjdXN0b21lciBzZWdtZW50YXRpb24gYWZmZWN0IGludmVudG9yeSBtYW5hZ2VtZW50PyoqCiAgICAtICAgU2VnbWVudHMgbGlrZSAqKkNoYW1waW9ucyoqIGFuZCAqKkxveWFsIEN1c3RvbWVycyoqIHNob3VsZCBoYXZlIHByaW9yaXR5IGZvciBoaWdoLWRlbWFuZCBwcm9kdWN0cywgd2hpbGUgKipBdCBSaXNrKiogY3VzdG9tZXJzIG1heSBuZWVkIHRhcmdldGVkIHByb21vdGlvbnMgdG8gY2xlYXIgZXhjZXNzIGludmVudG9yeS4KCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQoKIyMjICoqV3JhcC1VcDogRmluYWwgQnVzaW5lc3MgUmVwb3J0KioKCiMjIyMgKipFeGVjdXRpdmUgU3VtbWFyeSoqCgpUaGUgYW5hbHlzaXMgb2YgdGhlIFN1cGVyc3RvcmUgZGF0YXNldCByZXZlYWxlZCBrZXkgaW5zaWdodHMgaW50byBzYWxlcyB0cmVuZHMsIGN1c3RvbWVyIHNlZ21lbnRzLCBhbmQgc2hpcHBpbmcgbW9kZSBwcm9maXRhYmlsaXR5LiBCeSBvcHRpbWl6aW5nIHNoaXBwaW5nIHN0cmF0ZWdpZXMsIHJldGFpbmluZyBhdC1yaXNrIGN1c3RvbWVycywgYW5kIGxldmVyYWdpbmcgc2Vhc29uYWwgcGVha3MsIHRoZSBidXNpbmVzcyBjYW4gaW5jcmVhc2UgYW5udWFsIHByb2ZpdHMgYnkgYW4gZXN0aW1hdGVkICoqXCQ3OCw1NTEqKi4KCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQoKIyMjIyAqKktleSBGaW5kaW5ncyoqCgoxLiAgKipTYWxlcyBUcmVuZHMqKjogRGVjZW1iZXIgYW5kIE1hcmNoIGFyZSBwZWFrIHNhbGVzIG1vbnRocywgd2hpbGUgSmFudWFyeSBleHBlcmllbmNlcyBhIHNpZ25pZmljYW50IGRpcC5cCjIuICAqKkN1c3RvbWVyIFNlZ21lbnRzKio6CiAgICAtICAgKipMb3lhbCBDdXN0b21lcnMqKiAoMjUuODUlKSBnZW5lcmF0ZSB0aGUgbW9zdCByZXZlbnVlLlwKICAgIC0gICAqKkF0LVJpc2sgQ3VzdG9tZXJzKiogKDI0LjcyJSkgcmVwcmVzZW50IGEgc2lnbmlmaWNhbnQgcmV0ZW50aW9uIG9wcG9ydHVuaXR5LlwKMy4gICoqU2hpcHBpbmcgTW9kZXMqKjoKICAgIC0gICAqKlNlY29uZCBDbGFzcyoqIGhhcyB0aGUgaGlnaGVzdCBwcm9maXQgbWFyZ2luICgxNS4wMiUpLlwKICAgIC0gICAqKkZpcnN0IENsYXNzKiogZ2VuZXJhdGVzIHRoZSBoaWdoZXN0IHByb2ZpdCBwZXIgb3JkZXIgKFwkMzEuODQpLgoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCgojIyMjICoqUmVjb21tZW5kYXRpb25zKioKCjEuICAqKk9wdGltaXplIFNoaXBwaW5nIE1vZGVzKio6IFByb21vdGUgKipTZWNvbmQgQ2xhc3MqKiBhbmQgdXNlICoqRmlyc3QgQ2xhc3MqKiBmb3IgaGlnaC12YWx1ZSBvcmRlcnMuXAoyLiAgKipSZXRhaW4gQXQtUmlzayBDdXN0b21lcnMqKjogTGF1bmNoIHRhcmdldGVkIHJldGVudGlvbiBjYW1wYWlnbnMgdG8gcmVkdWNlIGNodXJuLlwKMy4gICoqTGV2ZXJhZ2UgU2Vhc29uYWwgVHJlbmRzKio6IEluY3JlYXNlIGludmVudG9yeSBhbmQgbWFya2V0aW5nIGVmZm9ydHMgZHVyaW5nIERlY2VtYmVyIGFuZCBNYXJjaC4KCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQoKIyMjIyAqKk5leHQgU3RlcHMqKgoKMS4gIEltcGxlbWVudCB0aGUgcmVjb21tZW5kZWQgc3RyYXRlZ2llcyBhbmQgbW9uaXRvciB0aGVpciBpbXBhY3QuXAoyLiAgQ29uZHVjdCBkZWVwZXIgYW5hbHlzaXMgb24gKipkaXNjb3VudHMqKiBhbmQgKipjdXN0b21lciBsaWZldGltZSB2YWx1ZSoqIHRvIHVuY292ZXIgYWRkaXRpb25hbCBvcHBvcnR1bml0aWVzLgoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCgojIyMgKipDb25jbHVzaW9uKioKCkJ5IGFkZHJlc3NpbmcgbG93LXBlcmZvcm1pbmcgYXJlYXMgYW5kIGNhcGl0YWxpemluZyBvbiBzdHJlbmd0aHMsIHRoZSBTdXBlcnN0b3JlIGNhbiBhY2hpZXZlIHN1c3RhaW5hYmxlIGdyb3d0aCBhbmQgaW1wcm92ZWQgcHJvZml0YWJpbGl0eS4KCiMjIyMgRGlzY3Vzc2lvbiBQb2ludHM6CgotICAgSG93IGRvIHNhbGVzIHRyZW5kcyBjb3JyZWxhdGUgd2l0aCBtYXJrZXRpbmcgaW5pdGlhdGl2ZXM/CgotICAgQXJlIHRoZXJlIHJlZ2lvbmFsIHByZWZlcmVuY2VzIGZvciBwcm9kdWN0IGNhdGVnb3JpZXM/CgotICAgV2hhdCBvcGVyYXRpb25hbCBjaGFuZ2VzIGNvdWxkIGltcHJvdmUgbG93LW1hcmdpbiBjYXRlZ29yaWVzPwoKLSAgIEhvdyBtaWdodCBjdXN0b21lciBzZWdtZW50YXRpb24gYWZmZWN0IGludmVudG9yeSBtYW5hZ2VtZW50PwoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCg==</div>
 
 
 
@@ -1930,7 +2699,7 @@ $(document).ready(function () {
 <!-- code folding -->
 <script>
 $(document).ready(function () {
-  window.initializeSourceEmbed("Superstore_EDA_Challenge_R.Rmd");
+  window.initializeSourceEmbed("Superstore_EDA_Challenge_R_FINAL.Rmd");
   window.initializeCodeFolding("show" === "show");
 });
 </script>

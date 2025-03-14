@@ -1,8 +1,3 @@
----
-title: "Superstore EDA Challenge"
-output: html_notebook
----
-
 # Superstore EDA Challenge with R
 
 ## Objective
@@ -13,14 +8,6 @@ Use your current knowledge in R, and research to learn more stuff and go beyond 
 
 **Objective:** Identify monthly trends and seasonal patterns.
 
-```{r}
-library(ggplot2)
-library(dplyr)
-library(readr)
-
-# Loading the Dataset
-df <- read.csv("/Users/guillermo/Documents/Ironhack/Datasets/Sample - Superstore/Sample - Superstore.csv")
-```
 
 **Tasks:**
 

@@ -5,14 +5,6 @@ output: html_notebook
 
 # Superstore EDA Challenge with R
 
-## Objective
-
-Use your current knowledge in R, and research to learn more stuff and go beyond your current knowledge to create a comprehensive EDA for the Superstore dataset (here). Create visualizations and calculations to answer the following business questions.
-
-### Question 1: How does sales performance vary over time?
-
-**Objective:** Identify monthly trends and seasonal patterns.
-
 ```{r}
 library(ggplot2)
 library(dplyr)
@@ -39,6 +31,16 @@ head(df$Order.Date )
 class(df$Order.Date)
 ```
 
+## Question 1: How does sales performance vary over time?
+
+------------------------------------------------------------------------
+
+#### **Executive Summary**
+
+Sales trends reveal **unexpected peaks in March and January**, a **significant September spike**, and a **moderate year-end rise**. Despite volatility, the business achieved **strong YOY growth (30% in 2016, 20% in 2017)**. Key opportunities lie in explaining anomalous peaks and addressing mid-year dips.
+
+------------------------------------------------------------------------
+
 ```{r}
 # Convert 'Order Date' to Date format (mm/dd/yyyy)
 df$Order.Date <- as.Date(df$Order.Date, format = "%m/%d/%Y")
@@ -51,7 +53,7 @@ df$YearMonth <- format(df$Order.Date, "%Y-%m")
 head(df[, c("Order.Date", "Ship.Date", "YearMonth")])
 ```
 
-**Tasks:**
+**Group by YearMonth and calculate total sales**
 
 -   Identify which months consistently show sales peaks.
 
@@ -64,6 +66,8 @@ monthly_sales <- df %>%
 # View the result
 head(monthly_sales)
 ```
+
+**Plot monthly sales trends**
 
 ```{r}
 # Plot monthly sales trends
@@ -86,6 +90,37 @@ monthly_avg_sales <- df %>%
   arrange(match(Month, month.abb)) # Arrange months in calendar order (Jan-Dec)
 
 ```
+
+------------------------------------------------------------------------
+
+### **Detailed Analysis**
+
+#### **1. Monthly Sales Trends**
+
+**Observations:**\
+- **Key Peaks:**\
+- **September**: A sharp, unexplained spike, followed by a **steep dip in October**. - **March**: Consistent annual peak.\
+- **November/December**: Smaller peaks compared to September.\
+- **Dips:**\
+- **January**: Largest annual drop.\
+- **October**: Sudden decline post-September spike.
+
+**Key Insight:**\
+- **September anomaly**: The September spike is unusual and warrants investigation (e.g., bulk orders, promotions, or data errors).\
+- **March strength**: Likely tied to fiscal year-end or seasonal B2B demand.
+
+------------------------------------------------------------------------
+
+------------------------------------------------------------------------
+
+#### **2. Average Sales by Month (All Years)**
+
+**Observations:**\
+- **Peaks:**\
+- **January**: Highest average sales, likely due to post-holiday bulk orders or unique annual contracts.\
+- **March**: Second-highest, reinforcing fiscal year-end activity.\
+- **Year-End Trend**:\
+- A **gradual increase** from August to December.
 
 ```{r}
 # Convert Month to a factor with ordered levels (Jan-Dec)
@@ -120,62 +155,6 @@ ggplot(yearly_monthly_sales, aes(x = Month, y = Total_Sales, color = Year, group
   scale_color_brewer(palette = "Set1")
 ```
 
-```{r}
-# Extract year from YearMonth
-monthly_sales$Year <- substr(monthly_sales$YearMonth, 1, 4)
-
-# Calculate YOY growth rate
-yoy_growth <- monthly_sales %>%
-  group_by(Year) %>%
-  summarise(Total_Sales = sum(Total_Sales)) %>%
-  mutate(YOY_Growth = (Total_Sales - lag(Total_Sales)) / lag(Total_Sales) * 100)
-
-# View the result
-yoy_growth
-
-# Plot YOY growth rate
-ggplot(yoy_growth, aes(x = Year, y = YOY_Growth)) +
-  geom_bar(stat = "identity", fill = "orange") +
-  labs(title = "Year-over-Year Sales Growth Rate", x = "Year", y = "YOY Growth (%)") +
-  theme_minimal()
-
-```
-
-------------------------------------------------------------------------
-
-#### **Executive Summary**
-
-Sales trends reveal **unexpected peaks in March and January**, a **significant September spike**, and a **moderate year-end rise**. Despite volatility, the business achieved **strong YOY growth (30% in 2016, 20% in 2017)**. Key opportunities lie in explaining anomalous peaks and addressing mid-year dips.
-
-------------------------------------------------------------------------
-
-### **Detailed Analysis**
-
-#### **1. Monthly Sales Trends**
-
-**Observations:**\
-- **Key Peaks:**\
-- **September**: A sharp, unexplained spike, followed by a **steep dip in October**. - **March**: Consistent annual peak.\
-- **November/December**: Smaller peaks compared to September.\
-- **Dips:**\
-- **January**: Largest annual drop.\
-- **October**: Sudden decline post-September spike.
-
-**Key Insight:**\
-- **September anomaly**: The September spike is unusual and warrants investigation (e.g., bulk orders, promotions, or data errors).\
-- **March strength**: Likely tied to fiscal year-end or seasonal B2B demand.
-
-------------------------------------------------------------------------
-
-#### **2. Average Sales by Month (All Years)**
-
-**Observations:**\
-- **Peaks:**\
-- **January**: Highest average sales, likely due to post-holiday bulk orders or unique annual contracts.\
-- **March**: Second-highest, reinforcing fiscal year-end activity.\
-- **Year-End Trend**:\
-- A **gradual increase** from August to December.
-
 **Key Insight:**\
 - **Contradictory seasonality**: Unlike typical retail patterns, January and March drive higher sales than year-end months. **While January and March show consistent strength in average sales, yearly trends reveal volatility in Q4 (e.g., a strong September 2016 followed by an October dip). This suggests that while the business can rely on Q1 stability, Q4 performance is highly sensitive to annual factors like promotions, logistics, or market shifts.**
 
@@ -197,6 +176,27 @@ Sales trends reveal **unexpected peaks in March and January**, a **significant S
 
 **Key Insight:**\
 - **Resilient growth**: Post-2015 recovery highlights adaptability, but irregular monthly trends suggest untapped potential.
+
+```{r}
+# Extract year from YearMonth
+monthly_sales$Year <- substr(monthly_sales$YearMonth, 1, 4)
+
+# Calculate YOY growth rate
+yoy_growth <- monthly_sales %>%
+  group_by(Year) %>%
+  summarise(Total_Sales = sum(Total_Sales)) %>%
+  mutate(YOY_Growth = (Total_Sales - lag(Total_Sales)) / lag(Total_Sales) * 100)
+
+# View the result
+#yoy_growth
+
+# Plot YOY growth rate
+ggplot(yoy_growth, aes(x = Year, y = YOY_Growth)) +
+  geom_bar(stat = "identity", fill = "orange") +
+  labs(title = "Year-over-Year Sales Growth Rate", x = "Year", y = "YOY Growth (%)") +
+  theme_minimal()
+
+```
 
 ------------------------------------------------------------------------
 
@@ -221,19 +221,9 @@ The Superstore’s sales patterns defy traditional retail seasonality, with **st
 
 ------------------------------------------------------------------------
 
--   Find any unusual dips in the trend line
+# Question 2: Which product categories have the best/worst profit margins?
 
--   (optional) Calculate YOY growth rate for the most recent complete year.
-
--   Suggest potential reasons for seasonal patterns
-
-### Question 2: Which product categories have the best/worst profit margins?
-
-**Objective:** Identify high/low performing product categories
-
-**Tasks:**
-
--   Identify which category has the thinnest margins
+**Identify high/low performing product categories**
 
 ```{r}
 # Calculate profit margin for each row
@@ -254,6 +244,13 @@ category_margins
 
 ```
 
+### Analysis from the data:
+
+-   **Technology** has the highest average profit margin: **15.61%**.\
+-   **Furniture** has the lowest average profit margin: **3.88%**.
+
+**Result:** The profit margin difference between Technology and Furniture is **11.73 percentage points**.
+
 ```{r}
 # Plot average profit margins by category
 ggplot(category_margins, aes(x = reorder(Category, Avg_ProfitMargin), y = Avg_ProfitMargin)) +
@@ -263,18 +260,7 @@ ggplot(category_margins, aes(x = reorder(Category, Avg_ProfitMargin), y = Avg_Pr
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
--   Calculate the profit margin difference between top and bottom categories
-
--   Suggest strategies to improve low-performing categories
-
 ------------------------------------------------------------------------
-
-### Analysis from the data:
-
--   **Technology** has the highest average profit margin: **15.61%**.\
--   **Furniture** has the lowest average profit margin: **3.88%**.
-
-**Result:** The profit margin difference between Technology and Furniture is **11.73 percentage points**.
 
 ### **Suggested Strategies to Improve Low-Performing Categories**
 
@@ -316,19 +302,16 @@ ggplot(category_margins, aes(x = reorder(Category, Avg_ProfitMargin), y = Avg_Pr
 
 ------------------------------------------------------------------------
 
-### Question 3: How do regional performances compare?
+# Question 3: How do regional performances compare?
 
-**Objective:** Compare sales distribution and profitability across regions
+### **Analysis: Do High Sales Always Correlate with High Profits?**
 
-**Tasks:**
+-   **West**: High sales and high profits (strong correlation).
+-   **East**: High sales but slightly lower profits (still strong).
+-   **South**: Moderate sales but better profits than **Central** (sales don’t fully explain profits).
+-   **Central**: Moderate sales but the **lowest profits** (weak correlation).
 
--   Identify which region has both high sales and high profitability
-
--   Find any regions with negative profits
-
--   Analyze if high sales always correlate with high profits
-
--   Propose regional-specific strategies based on findings
+**Conclusion:** High sales **do not always** correlate with high profits. **Central** is a clear example where sales are decent, but profits are significantly lower due to poor margins.
 
 ```{r}
 # Group by Region and calculate total sales and profit
@@ -345,6 +328,13 @@ region_performance <- df %>%
 region_performance
 ```
 
+### **Regional-Specific Strategies**
+
+#### **1. West (High Sales, High Profit)**
+
+-   **Strategy**: Maintain momentum by investing in marketing and expanding high-margin product lines.\
+-   **Action**: Focus on customer retention and upselling premium products.
+
 ```{r}
 # Plot total sales by region
 ggplot(region_performance, aes(x = reorder(Region, Total_Sales), y = Total_Sales)) +
@@ -353,6 +343,11 @@ ggplot(region_performance, aes(x = reorder(Region, Total_Sales), y = Total_Sales
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
+
+#### **2. East (High Sales, Moderate Profit)**
+
+-   **Strategy**: Improve profitability by optimizing costs and reducing discounts.\
+-   **Action**: Analyze operational inefficiencies and renegotiate supplier contracts.
 
 ```{r}
 # Plot total profit by region
@@ -363,6 +358,11 @@ ggplot(region_performance, aes(x = reorder(Region, Total_Profit), y = Total_Prof
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
+#### **3. South (Moderate Sales, Moderate Profit)**
+
+-   **Strategy**: Boost sales while maintaining healthy margins.\
+-   **Action**: Launch targeted promotions and improve product mix to attract more customers.
+
 ```{r}
 # Plot average profit margin by region
 ggplot(region_performance, aes(x = reorder(Region, Avg_ProfitMargin), y = Avg_ProfitMargin)) +
@@ -371,34 +371,6 @@ ggplot(region_performance, aes(x = reorder(Region, Avg_ProfitMargin), y = Avg_Pr
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
-
-------------------------------------------------------------------------
-
-### **Analysis: Do High Sales Always Correlate with High Profits?**
-
--   **West**: High sales and high profits (strong correlation).\
--   **East**: High sales but slightly lower profits (still strong).\
--   **South**: Moderate sales but better profits than **Central** (sales don’t fully explain profits).\
--   **Central**: Moderate sales but the **lowest profits** (weak correlation).
-
-**Conclusion:** High sales **do not always** correlate with high profits. **Central** is a clear example where sales are decent, but profits are significantly lower due to poor margins.
-
-### **Regional-Specific Strategies**
-
-#### **1. West (High Sales, High Profit)**
-
--   **Strategy**: Maintain momentum by investing in marketing and expanding high-margin product lines.\
--   **Action**: Focus on customer retention and upselling premium products.
-
-#### **2. East (High Sales, Moderate Profit)**
-
--   **Strategy**: Improve profitability by optimizing costs and reducing discounts.\
--   **Action**: Analyze operational inefficiencies and renegotiate supplier contracts.
-
-#### **3. South (Moderate Sales, Moderate Profit)**
-
--   **Strategy**: Boost sales while maintaining healthy margins.\
--   **Action**: Launch targeted promotions and improve product mix to attract more customers.
 
 #### **4. Central (Moderate Sales, Low Profit)**
 
@@ -416,13 +388,14 @@ ggplot(region_performance, aes(x = reorder(Region, Avg_ProfitMargin), y = Avg_Pr
 
 ------------------------------------------------------------------------
 
-### Question 4: What does customer segmentation reveal?
+# Question 4: What does customer segmentation reveal?
 
-**Objective:** Identify valuable customer groups using RFM analysis
+### **Summary of What Has Been Done**
 
-**Tasks:**
-
--   Calculate percentage of customers in each segment
+We performed **RFM analysis** to segment customers into groups based on their purchasing behavior:\
+- **Recency (R):** How recently they purchased.\
+- **Frequency (F):** How often they purchase.\
+- **Monetary (M):** How much they spend.
 
 ```{r}
 # Calculate Recency (days since last purchase)
@@ -441,6 +414,14 @@ head(rfm_data)
 dim(rfm_data)
 ```
 
+Using these metrics, we categorized customers into six segments:\
+1. **Loyal Customers**\
+2. **Potential Loyalists**\
+3. **Champions**\
+4. **At Risk**\
+5. **Can’t Lose**\
+6. **High Spenders**
+
 ```{r}
 # Assign RFM scores
 rfm_data <- rfm_data %>%
@@ -457,6 +438,8 @@ rfm_data$RFM_Score <- rfm_data$R_Score + rfm_data$F_Score + rfm_data$M_Score
 head(rfm_data)
 ```
 
+We then calculated the **percentage of customers** in each segment and the **total revenue** they generate.
+
 ```{r}
 # Define segments (including High Spenders)
 rfm_data <- rfm_data %>%
@@ -471,9 +454,7 @@ rfm_data <- rfm_data %>%
       TRUE ~ "Others"  # Catch-all for remaining customers
     )
   )
-```
 
-```{r}
 # Calculate percentage of customers in each segment
 segment_summary <- rfm_data %>%
   group_by(Segment) %>%
@@ -495,31 +476,6 @@ ggplot(segment_summary, aes(x = reorder(Segment, -Percentage), y = Percentage)) 
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
-
--   Identify which segment generates the most revenue
-
--   Develop retention strategies for “At Risk” customers
-
--   Suggest marketing approaches for “High Spenders”
-
-------------------------------------------------------------------------
-
-### **Summary of What Has Been Done**
-
-We performed **RFM analysis** to segment customers into groups based on their purchasing behavior:\
-- **Recency (R):** How recently they purchased.\
-- **Frequency (F):** How often they purchase.\
-- **Monetary (M):** How much they spend.
-
-Using these metrics, we categorized customers into six segments:\
-1. **Loyal Customers**\
-2. **Potential Loyalists**\
-3. **Champions**\
-4. **At Risk**\
-5. **Can’t Lose**\
-6. **High Spenders**
-
-We then calculated the **percentage of customers** in each segment and the **total revenue** they generate.
 
 ------------------------------------------------------------------------
 
@@ -566,19 +522,16 @@ The segmentation reveals a strong base of **Loyal Customers** and **Potential Lo
 
 ------------------------------------------------------------------------
 
-### Question 5: How does shipping mode affect profitability?
-
-**Objective:** Analyze cost-to-serve across shipping modes
-
-**Tasks:**
-
--   Compare profit margins across shipping modes
-
--   Suggest optimal shipping strategy based on findings
-
-------------------------------------------------------------------------
+# Question 5: How does shipping mode affect profitability?
 
 ### **Analysis Profit Margins by Shipping Mode**
+
+From the data: - **Second Class** has the highest average profit margin (**15.02%**).\
+- **Same Day** follows with **13.82%**.\
+- **First Class** and **Standard Class** have lower margins (**11.59%** and **11.01%**, respectively).
+
+**Key Insight:**\
+- **Second Class** is the most profitable shipping mode, while **Standard Class** (the most commonly used) has the lowest margin.
 
 ```{r}
 # Group by Ship.Mode and calculate average profit margin
@@ -595,18 +548,9 @@ shipping_margins <- df %>%
 shipping_margins
 ```
 
-### **Analysis Profit Margins by Shipping Mode**
-
-From the data: - **Second Class** has the highest average profit margin (**15.02%**).\
-- **Same Day** follows with **13.82%**.\
-- **First Class** and **Standard Class** have lower margins (**11.59%** and **11.01%**, respectively).
-
-**Key Insight:**\
-- **Second Class** is the most profitable shipping mode, while **Standard Class** (the most commonly used) has the lowest margin.
-
 ------------------------------------------------------------------------
 
-### \*\* Analysis Profit Per Order by Shipping Mode\*\*
+### **Analysis Profit Per Order by Shipping Mode**
 
 ```{r}
 # Calculate profit per order for each shipping mode
@@ -621,9 +565,11 @@ profit_per_order <- df %>%
 profit_per_order
 ```
 
-From the data: - **First Class** has the highest average profit per order (**\$31.84**).\
-- **Second Class** follows with **\$29.54**.\
-- **Same Day** and **Standard Class** have lower profits per order (**\$29.27** and **\$27.49**, respectively).
+From the data:
+
+-   **First Class** has the highest average profit per order (**\$31.84**).\
+-   **Second Class** follows with **\$29.54**.\
+-   **Same Day** and **Standard Class** have lower profits per order (**\$29.27** and **\$27.49**, respectively).
 
 **Key Insight:**\
 - Despite having a lower profit margin, **First Class** generates the highest profit per order, likely due to higher sales values or fewer discounts.
@@ -693,7 +639,9 @@ Based on the analysis, here’s how to optimize shipping modes for profitability
 1.  **Promote Second Class**: Encourage customers to choose this mode for better profitability.\
 2.  **Leverage First Class**: Use it for high-value orders to maximize profit per order.
 
-### Extra Challenge:
+------------------------------------------------------------------------
+
+# Extra Challenge:
 
 -   Identify 3 actionable business recommendations.
 
